@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-green-50 w-full ">
-        <span class="font-semibold">Hello</span>
+    <div class=" w-full ">
+        <span class="font-semibold"></span>
         여기는 layouts/default 부분입니다. 
         <slot/>
     </div>

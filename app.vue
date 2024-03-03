@@ -6,5 +6,8 @@
     </div>
   </template>
 <script setup lang="ts">
-import WorldMap from './components/WorldMap.vue';
+
+// console.log('hi')
+// import { connectToDatabase } from '~/server/api/db';
+
 </script>

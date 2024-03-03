@@ -1,9 +1,14 @@
 <template>
-    <div class="h-40 w-full bg-red-50">index입니다.</div>
+    <div class="h-auto">
+        {{ data }}
+    </div>
 </template>
-<script setup lang="ts">
+<script setup>
+const { data } = await useFetch('/api/hello')
 
 </script>
-<style scoped>
-
+<style lang="">
+    
 </style>
+
+
