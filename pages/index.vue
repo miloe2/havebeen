@@ -1,10 +1,9 @@
 <template>
     <div class="h-auto">
-        <!-- {{ data }} -->
+        index page입니다. 
     </div>
 </template>
-<script setup>
-// const { data } = await useFetch('/api/hello')
+<script>
 
 </script>
 <style lang="">
