@@ -1,21 +1,20 @@
 import { connectToDatabase } from '~/server/api/db';
 import { defineEventHandler, getQuery } from 'h3';
 
+
+//페이지네이션 호출
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 8;
-    console.log('api start')
     try {
         const db = await connectToDatabase();
-        console.log(db)
         // .skip()과 .limit()을 사용하여 페이지네이션 구현
         const exhibitions = await db.collection('kotraExhibitions')
                                     .find()
                                     .skip((page - 1) * limit)
                                     .limit(limit)
                                     .toArray();
-                                    console.log(exhibitions)
         return exhibitions;
     } catch(error) {
         console.log(error);

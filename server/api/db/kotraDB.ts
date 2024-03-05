@@ -1,6 +1,6 @@
 // kotra 에서 DB가져오기
 import axios from 'axios';
-import type { DataItme } from '~/types/dataTypes';
+import type { DataItem } from '~/types/dataTypes';
 const kotraURL ='https://api.odcloud.kr/api/15003367/v1/uddi:9aae9c56-1d56-4816-b2cf-91cc05e71e47';
 const SERVICE_KEY = process.env.KOTRA_KEY;
 
@@ -22,7 +22,7 @@ const fieldMapping : { [key: string]: string } = {
 };
 
 // 데이터의 필드명을 한글에서 영문으로 변경하는 함수
-function convertFieldNames(data : DataItme[]) :DataItme[] {
+function convertFieldNames(data : DataItem[]) :DataItem[] {
     return data.map(item => {
         const newItem: { [key: string]: string } = {};
         Object.keys(item).forEach(key => {
