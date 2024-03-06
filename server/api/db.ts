@@ -1,29 +1,21 @@
-import { connectToDatabase } from '../index';
+import { defineEventHandler } from 'h3';
+import { connectToDatabase } from '../index'; 
 
 export default defineEventHandler(async (event) => {
     const pool = await connectToDatabase();
-  
     try {
-      pool.query('SELECT * from t_exhibitions', (error, rows, fields) => {
-        if (error) throw error;
-        console.log('User info is: ', rows);
-      });
-      // // 'query'의 반환 값을 구조 분해 할당을 통해 처리
-      // const [rows] = await pool.query("SHOW TABLES");
-  
-      // // 이제 'rows'는 반복할 필요가 없는, 쿼리 결과 배열입니다.
-      // // 로그 출력이나 클라이언트로의 응답 등에 사용할 수 있습니다.
-      // console.log(rows);
-  
-      // // 예를 들어, 클라이언트에게 조회된 테이블 목록을 JSON 형태로 반환
-      // return rows;
+        // 비동기 작업을 await 키워드를 사용하여 처리
+        const [rows] = await pool.query('SELECT * FROM t_exhibitions');
+        console.log(rows); // 서버 측 로그에 결과 출력
+        // 결과를 직접 반환
+        return rows;
     } catch (error) {
-      console.error('Query error:', error);
-      // 에러 발생 시 클라이언트에게 에러 메시지 반환
-      return { error: 'Failed to fetch tables' };
+        console.error('Query error:', error);
+        // 에러 발생 시 클라이언트에게 에러 메시지 반환
+        return { error: 'Failed to fetch tables' };
     }
-  });
-  
+});
+
   
 // import { Db, MongoClient } from "mongodb";
 

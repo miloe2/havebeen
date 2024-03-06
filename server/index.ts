@@ -1,5 +1,6 @@
-import mysql, { type Pool } from 'mysql2';
+import mysql, { type Pool } from 'mysql2/promise';
 // 예: "mysql://user:password@localhost:3306/database_name"
+// 서버만 연결하는 코드 
 const MYSQL_URI = process.env.MYSQL_URI as string; 
 let pool : Pool;
 
