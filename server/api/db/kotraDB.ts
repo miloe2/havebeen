@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
         try {
             const res = await axios.get(`${kotraURL}?serviceKey=${SERVICE_KEY}`, {
             params: {
-                page: 1,
+                page: 8,
             },
             });
         
@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
             // 삽입 쿼리 생성 및 실행
             for (const item of convertedData) {
             const placeholders = Object.keys(item).map(() => '?').join(', ');
-            console.log(placeholders)
+            // console.log(placeholders)
             const sql = `INSERT INTO t_exhibitions (${Object.keys(item).join(', ')}) VALUES (${placeholders})`;
             // console.log(sql)
             // await pool.query(sql, Object.values(item));
