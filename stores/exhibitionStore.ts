@@ -9,14 +9,14 @@ export const useExhibitionStore = defineStore('exhibitions', {
         closestExhibitions  : [] as DataItem[] | null,
     }),
     actions : {
-        async fetchExhibitions() {
-            try {
-                const data = await $fetch(`/api/exhibitions`);
-                this.exhibitions = data
-            }catch (error){
-                console.log(error)
-            }
-        },
+        // async fetchExhibitions() {
+        //     try {
+        //         const data = await $fetch(`/api/exhibitions`);
+        //         this.exhibitions = data
+        //     }catch (error){
+        //         console.log(error)
+        //     }
+        // },
         async fetchClosestExhibitions(){
             try{
                 const data = await $fetch<DataItem[]>(`/api/exhibitions/upcoming`);

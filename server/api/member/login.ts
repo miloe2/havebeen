@@ -3,10 +3,12 @@ import { connectToDatabase } from '~/server/index';
 
 export default defineEventHandler(async (event) => {
     // const query = getQuery(event);
-    const {user_id, user_pwd} = getQuery(event)
+    // console.log('start', getQuery(event))
+    const body = await readBody(event);
+    const { user_id, user_pwd } = body
+    // console.log('api', user_id, user_pwd)
     const pool = await connectToDatabase();
     try {
-        // 타입 단언을 사용하지 않고 mysql2/promise의 결과를 처리
         const [result] = await pool.query(
             `SELECT * FROM t_users WHERE user_id = ?`, [user_id]
         );
@@ -16,10 +18,11 @@ export default defineEventHandler(async (event) => {
                 const user = rows[0];
                 const match = user_pwd === user.user_pwd;
                 if(match){
-                    return { status : true , message : '로그인 성공'}
+                    return { status : true , name: user.user_name, message : '로그인 성공' }
                 } else {
                     return {status : false, message : '로그인 실패'}
                 }
+                
             } else {
                 return {status :false, message : '사용자가 없습니다.'}
             }
