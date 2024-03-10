@@ -1,17 +1,15 @@
-<template>
-    <div class="h-auto">
-        index page입니다. 
+<template >
+    <div class="lg:w-[1024px] w-full  mx-auto">
+        <ExhibitionsList/>
     </div>
 </template>
-<script>
-// const { data, refresh } = await useAsyncData("useAsyncDataTest", () => $fetch("/api/db/convertedDate"));
-// console.log(data.value);
-    // const data = await $fetch(`/api/exhibitions/convertedDate`);
-    // console.log(data)
+<script setup lang="ts">
+import ExhibitionsList from '~/components/exhibitions/ExhibitionsList';
 
+// const { data: exhibitions, refresh } = await useAsyncData(
+//   () => $fetch(`/api/exhibitions/upcoming`)
+// );
 </script>
-<style lang="">
+<style >
     
 </style>
-
-
