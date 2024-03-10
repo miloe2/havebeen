@@ -1,9 +1,10 @@
 <template >
-    <div class="lg:w-[1024px] w-full  mx-auto">
-        exhibition page
+    <div class="xl:w-[1150px] w-full  mx-auto">
+        <ExhibitionsList/>
     </div>
 </template>
 <script setup lang="ts">
+import ExhibitionsList from '~/components/exhibitions/ExhibitionsList.vue';
 
 // const { data: exhibitions, refresh } = await useAsyncData(
 //   () => $fetch(`/api/exhibitions/upcoming`)

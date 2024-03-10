@@ -1,10 +1,11 @@
 <template >
     <div class="lg:w-[1024px] w-full  mx-auto">
-        <ExhibitionsList/>
+        <ClosetList/>
     </div>
 </template>
 <script setup lang="ts">
-import ExhibitionsList from '~/components/exhibitions/ExhibitionsList';
+// import ClosetList from '~/components/home/ClosetList';
+import ClosetList from '~/components/home/ClosetList.vue';
 
 // const { data: exhibitions, refresh } = await useAsyncData(
 //   () => $fetch(`/api/exhibitions/upcoming`)

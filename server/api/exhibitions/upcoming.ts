@@ -6,11 +6,12 @@ export default defineEventHandler(async (event) => {
     const connection = await connectToDatabase();
     const [rows] = await connection.execute(
         `SELECT * , ABS(DATEDIFF(startDate, CURDATE())) AS closestDifference 
-        FROM t_exhibitions 
+        FROM t_exhibitions
+        WHERE startDate >= CURDATE() 
         ORDER BY closestDifference ASC 
         LIMIT 4;`
     );
-    await connection.end;
+    // await connection.end();
     return rows;
     
   } catch (error) {
