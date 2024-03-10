@@ -5,7 +5,6 @@ const MYSQL_URI = process.env.MYSQL_URI as string;
 let pool : Pool;
 
 export const connectToDatabase = async () => {
-    console.log('start')
     if (pool) return pool;
 
     pool = mysql.createPool(MYSQL_URI);

@@ -7,7 +7,5 @@
   </template>
 <script setup lang="ts">
 
-// console.log('hi')
-// import { connectToDatabase } from '~/server/api/db';
 
 </script>

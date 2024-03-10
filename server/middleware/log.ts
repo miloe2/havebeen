@@ -1,4 +1,3 @@
-import { connectToDatabase } from "../api/db";
 export default defineEventHandler(async (event) => {
     console.log('New request: ' + getRequestURL(event))
     // connectToDatabase();
