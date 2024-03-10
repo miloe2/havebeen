@@ -19,6 +19,10 @@ export interface DataItem {
     finishDate?: string; 
     closestDifference?: number; 
 }
+export interface DataByMonth {
+    month : string;
+    data : DataItem[];
+}
 
 export interface FieldMapping {
     [key : string] : string;

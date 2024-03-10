@@ -1,11 +1,17 @@
-import { defineEventHandler } from 'h3';
+import { defineEventHandler, getQuery } from 'h3';
 import { connectToDatabase } from '~/server/index'; 
 
 export default defineEventHandler(async (event) => {
+    const query = getQuery(event);
+    const year = query.year;
+    const month = query.month;
+    console.log('index', year,month)
+    const sql = `SELECT * FROM t_exhibitions
+    WHERE DATE_FORMAT(startDate, '%Y-%m') = ? `
     const pool = await connectToDatabase();
     try {
         // 비동기 작업을 await 키워드를 사용하여 처리
-        const [rows] = await pool.query('SELECT * FROM t_exhibitions');
+        const [rows] = await pool.query(sql, [`${year}-${month}`]);
         console.log(rows); // 서버 측 로그에 결과 출력
         // 결과를 직접 반환
         return rows;

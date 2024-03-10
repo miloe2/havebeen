@@ -1,5 +1,5 @@
 <template >
-    <div class="xl:w-[1150px] w-full  mx-auto">
+    <div class="xl:w-[1150px] w-full min-h-screen  mx-auto mb-40">
         <ExhibitionsList/>
     </div>
 </template>

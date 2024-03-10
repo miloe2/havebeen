@@ -6,12 +6,10 @@ export default defineEventHandler(async (event) => {
     // console.log('start', getQuery(event))
     const body = await readBody(event);
     const { user_id, user_pwd } = body
-    // console.log('api', user_id, user_pwd)
+    const sql = `SELECT * FROM t_users WHERE user_id = ?`
     const pool = await connectToDatabase();
     try {
-        const [result] = await pool.query(
-            `SELECT * FROM t_users WHERE user_id = ?`, [user_id]
-        );
+        const [result] = await pool.execute(sql, [user_id]);
         if(Array.isArray(result)){
             const rows = result as RowDataPacket[];
             if(rows.length > 0) {
