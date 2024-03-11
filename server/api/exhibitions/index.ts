@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
     const month = query.month;
     console.log('index', year,month)
     const sql = `SELECT * FROM t_exhibitions
-    WHERE DATE_FORMAT(startDate, '%Y-%m') = ? `
+    WHERE DATE_FORMAT(startDate, '%Y-%m') = ? 
+    ORDER BY startDate ASC `
     const pool = await connectToDatabase();
     try {
         // 비동기 작업을 await 키워드를 사용하여 처리
