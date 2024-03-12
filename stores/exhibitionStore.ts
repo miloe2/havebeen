@@ -9,6 +9,8 @@ export const useExhibitionStore = defineStore('exhibitions', {
         exhibitionsByMonth : [] as DataByMonth[] | null,
         closestExhibitions  : [] as DataItem[] | null,
         exhibitionDetail : [] as DataItem[] | null,
+        searchYear : new Date().getFullYear(),
+        searchMonth : new Date().getMonth() + 1
     }),
     actions : {
         async fetchExhibitions(year :number, month:number) {
@@ -48,6 +50,22 @@ export const useExhibitionStore = defineStore('exhibitions', {
                 this.exhibitionDetail = data;
             } catch(error){
                 console.log(error)
+            }
+        },
+        incrementMonth() {
+            if (this.searchMonth < 12) {
+                this.searchMonth++;
+            } else {
+                this.searchMonth = 1;
+                this.searchYear++;
+            }
+        },
+        decrementMonth() {
+            if (this.searchMonth > 1) {
+                this.searchMonth--;
+            } else {
+                this.searchMonth = 12;
+                this.searchYear--;
             }
         }
     }

@@ -31,43 +31,30 @@ import { useExhibitionStore } from '~/stores/exhibitionStore';
 import { useAsyncData } from 'nuxt/app'
 import debounce from 'lodash/debounce';
 const router = useRouter();
-const today = new Date();
-const year = ref(today.getFullYear());
-const month = ref(today.getMonth() + 1);
+// const today = new Date();
+// const year = ref(today.getFullYear());
+// const month = ref(today.getMonth() + 1);
 // const searchDate = ref(`${year.value}-${month.value.toString().padStart(2, '0')}`);
+const exhibitionStore = useExhibitionStore();
+const year = computed(() => exhibitionStore.searchYear);
+const month = computed(() => exhibitionStore.searchMonth);
+const exhibitionsByMonth = computed(() => exhibitionStore.exhibitionsByMonth)
 const searchDate = computed(() => `${year.value}-${month.value.toString().padStart(2, '0')}`);
 const list = computed(() => exhibitionsByMonth.value?.find(m => m.month === searchDate.value)?.data || [])
 
-const { data: exhibitionsByMonth, pending, error, refresh } = useAsyncData(async () => {
-    const exhibitionStore = useExhibitionStore();
-    await exhibitionStore.fetchExhibitions(year.value, month.value);
-    return exhibitionStore.exhibitionsByMonth;
-});
+// const { data: exhibitionsByMonth, pending, error, refresh } = useAsyncData(async () => {
+//     const exhibitionStore = useExhibitionStore();
+//     await exhibitionStore.fetchExhibitions(year.value, month.value);
+//     return exhibitionStore.exhibitionsByMonth;
+// });
 const goToDetail = (item) => {
     router.push(`/exhibitions/${item.id}`)
 }
 const handleRightBtn = debounce(() => {
-    if(month.value < 12) {
-        month.value ++;
-        refresh();
-        // console.log(searchDate.value)
-        // console.log(exhibitionsByMonth.value[dateStr])
-    } else if(month.value === 12) {
-        // month.value = 1;
-        // year.value++;
-        return;
-    }
+    exhibitionStore.incrementMonth();
 }, 100)
 const handleLeftBtn = debounce(() => {
-    if(month.value > 1) {
-        month.value --;
-        refresh();
-        // console.log(exhibitionsByMonth.value)
-    } else if(month.value === 1) {
-        // month.value = 12;
-        // year.value--;
-        return;
-    }
+    exhibitionStore.decrementMonth();
 }, 100)
 
 
