@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useAsyncData } from "#app";
-import type { DataItem , DataByMonth} from '~/types/dataTypes';
+import type { DataItem , DataByMonth, DataByCategory} from '~/types/dataTypes';
 
 
 export const useExhibitionStore = defineStore('exhibitions', {
@@ -9,14 +9,31 @@ export const useExhibitionStore = defineStore('exhibitions', {
         exhibitionsByMonth : [] as DataByMonth[] | null,
         closestExhibitions  : [] as DataItem[] | null,
         exhibitionDetail : [] as DataItem[] | null,
+        exhibitionsByCategory : [] as DataByCategory[] | null,
         searchYear : new Date().getFullYear(),
         searchMonth : new Date().getMonth() + 1
     }),
     actions : {
+        async fetchSimilarExhibitions(category:string){
+            const existingData = this.exhibitionsByCategory?.find(c => c.category === category);
+            if(existingData) return;
+            try {
+                const data = await $fetch<DataItem[]>(`/api/exhibitions/similar-category`, {
+                    method:'GET',
+                    params : { category }
+                });
+                if(!this.exhibitionsByCategory){
+                    this.exhibitionsByCategory = [];
+                }
+                this.exhibitionsByCategory.push({category, data})
+            }catch(error){
+                console.log(error)
+            }
+        },
         async fetchExhibitions(year :number, month:number) {
             const yearMonthStr = `${year}-${month.toString().padStart(2, '0')}`;
             const monthStr = `${month.toString().padStart(2, '0')}`;
-            console.log(monthStr)
+            // console.log(monthStr)
             const existingData = this.exhibitionsByMonth?.find(m => m.month === yearMonthStr)
             if(existingData){
                 return;
@@ -26,7 +43,7 @@ export const useExhibitionStore = defineStore('exhibitions', {
                     method: 'GET',
                     params : {year, month : monthStr}
                 });
-                console.log(data)
+                // console.log(data)
                 if(!this.exhibitionsByMonth) {
                     this.exhibitionsByMonth = [];
                 }

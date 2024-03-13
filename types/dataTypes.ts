@@ -23,6 +23,10 @@ export interface DataByMonth {
     month : string;
     data : DataItem[];
 }
+export interface DataByCategory {
+    category : string;
+    data : DataItem[];
+}
 
 export interface FieldMapping {
     [key : string] : string;
