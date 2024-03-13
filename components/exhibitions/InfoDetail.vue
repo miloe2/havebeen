@@ -28,12 +28,12 @@
             </div>
         </div>
     </div>
-    {{ props.exhibitionsDetail }}
+    <!-- {{ props.exhibitionsDetail }} -->
 </template>
 <script setup>
 import { eventPeried } from '~/utils/formatUnit';
 const props = defineProps({
-    exhibitionsDetail : {type : Array, required : true},
+    exhibitionsDetail : {type : Object, required : true},
 })
 </script>
 
