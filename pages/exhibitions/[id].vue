@@ -2,13 +2,12 @@
     <div class="xl:w-[1150px] w-full min-h-screen  mx-auto mb-40 ">
         <div v-if="!pending">
             <InfoDetail :exhibitionsDetail="data.exhibitionDetail" />
+            <DetailPhotos/>
             <RelativeExhibitions 
             :category="data.exhibitionDetail.category"
             :list="data.exhibitionsByCategory"
             />
-            <!-- {{ exhibitionDetail[0]  }} -->
         </div>
-        <!-- {{ data.exhibitionsByCategory }} -->
 
     </div>
 </template>
@@ -16,6 +15,7 @@
 // import { useSSRContext } from 'vue';
 import { useRoute } from 'vue-router';
 import InfoDetail from '~/components/exhibitions/InfoDetail.vue';
+import DetailPhotos from '~/components/exhibitions/DetailPhotos.vue';
 import RelativeExhibitions from '~/components/exhibitions/RelativeExhibitions.vue'
 // const { params } = useSSRContext();
 // const exhibitionId = params.id;
