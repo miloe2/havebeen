@@ -1,5 +1,5 @@
 <template>
-    <div class="xl:w-[1150px] w-full min-h-screen  mx-auto mb-40 bg-red-50">
+    <div class="xl:w-[1150px] w-full min-h-screen  mx-auto mb-40 ">
         <div v-if="!pending">
             <InfoDetail :exhibitionsDetail="data.exhibitionDetail" />
             <RelativeExhibitions 
@@ -7,7 +7,7 @@
             :list="data.exhibitionsByCategory"
             />
             <!-- {{ exhibitionDetail[0]  }} -->
-         </div>
+        </div>
         <!-- {{ data.exhibitionsByCategory }} -->
 
     </div>
