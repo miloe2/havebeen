@@ -12,24 +12,16 @@
     </div>
 </template>
 <script setup>
-// import { useSSRContext } from 'vue';
 import { useRoute } from 'vue-router';
 import InfoDetail from '~/components/exhibitions/InfoDetail.vue';
 import DetailPhotos from '~/components/exhibitions/DetailPhotos.vue';
 import RelativeExhibitions from '~/components/exhibitions/RelativeExhibitions.vue';
 import ExhibitionReview from '~/components/exhibitions/ExhibitionReview.vue';
-// const { params } = useSSRContext();
-// const exhibitionId = params.id;
-// let exhibitionId = parseInt(route.params.id, 10);
-// const exhibitionId = parseInt(route.params.id as string, 10);
 const route = useRoute();
 const exhibitionId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
 const { data, pending, error, refresh } = useAsyncData(async () => {
-    console.log(exhibitionId)
-    // console.log(params)
     const exhibitionStore = useExhibitionStore();
     // 먼저 전시회 상세 정보를 불러옵니다.
-    console.log('start')
     await exhibitionStore.fetchExhibitionDetail(exhibitionId);
     // console.log(exhibitionStore.exhibitionDetail)
     // 전시회 상세 정보를 바탕으로 비슷한 카테고리의 전시회 목록을 불러옵니다.
