@@ -1,9 +1,9 @@
 <template >
     <div class="flex w-[900px] bg-yellow-">
-        <div class="w-120">
+        <div class="w-full h-[360px]">
             <img :src="`https://source.unsplash.com/random/400x300`" alt="" class="card-image w-full h-full object-cover" loading="lazy">
         </div>
-        <div class="flex flex-col pl-10 pt-8 ">
+        <div class="flex flex-col pl-10 w-full pt-8 ">
             <div class="text-sm font-medium">
                 <span class=" py-1 border-t-2 border-b-2 border-solid border-red-500 mr-3">{{ props.exhibitionsDetail.category}}</span>
                 <span class=" py-1 border-t-2 border-b-2 border-solid border-green-500 mr-1">{{ props.exhibitionsDetail.country}}</span>
@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+
     <!-- {{ props.exhibitionsDetail }} -->
 </template>
 <script setup>

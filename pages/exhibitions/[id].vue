@@ -3,10 +3,10 @@
         <div v-if="!pending">
             <InfoDetail :exhibitionsDetail="data.exhibitionDetail" />
             <DetailPhotos/>
+            <ExhibitionReview/>
             <RelativeExhibitions 
             :category="data.exhibitionDetail.category"
-            :list="data.exhibitionsByCategory"
-            />
+            :list="data.exhibitionsByCategory"/>
         </div>
 
     </div>
@@ -16,7 +16,8 @@
 import { useRoute } from 'vue-router';
 import InfoDetail from '~/components/exhibitions/InfoDetail.vue';
 import DetailPhotos from '~/components/exhibitions/DetailPhotos.vue';
-import RelativeExhibitions from '~/components/exhibitions/RelativeExhibitions.vue'
+import RelativeExhibitions from '~/components/exhibitions/RelativeExhibitions.vue';
+import ExhibitionReview from '~/components/exhibitions/ExhibitionReview.vue';
 // const { params } = useSSRContext();
 // const exhibitionId = params.id;
 // let exhibitionId = parseInt(route.params.id, 10);
