@@ -19,6 +19,7 @@
             </div>
             <div class="w-full bg-red-0 mt-4">
                 <textarea rows="3" class="w-full rounded-sm ring-1 ring-zinc-400 text-sm p-2 "
+                v-model="reviewText" 
                 placeholder="리뷰를 작성해주세요"></textarea>
             </div>
             <div class="w-full bg-red-0 mt-4 flex flex-col">
@@ -57,7 +58,7 @@
             </div>
 
             <div class="mt-20 w-full ">
-                <MoreButton :name="'작성완료'"/>
+                <MoreButton :name="'작성완료'" @action="sendReview"/>
             </div>
 
         </div>
@@ -69,12 +70,17 @@ import DimmedBlack from '~/components/Ui/DimmedBlack.vue';
 import RateStar from '../Ui/RateStar.vue';
 import reviewsTag from '~/assets/data/reviewsTag.json';
 const tagArray = ref(new Array(reviewsTag.length).fill(false));
+const reviewText = ref();
+// const handleComments = () => {
+//     console.log(reviewText.value)
+// }
 
 // 리뷰 별 핸들러
 const ratedStar = ref();
 const handleStarRate = (value) => {
     ratedStar.value = value;
 };
+
 
 // 전시회 방문 타입
 const visitorType = ref();
@@ -85,6 +91,23 @@ const handleVisitor = (visitType) => {
 // 클릭하면 색변하게 하기, tagArray는 boolean[] => 
 const handleTag = (index) => {
     tagArray.value[index] = !tagArray.value[index]
+};
+const selectedTags = ref([]);
+const findTags = () => {
+    tagArray.value.filter((t, i)=> {
+        if(t === true) {
+            selectedTags.value.push(reviewsTag[i]);
+        } 
+    });
+
+}
+
+const sendReview  = () => {
+    findTags();
+    console.log(reviewText.value)
+    console.log(ratedStar.value);
+    console.log(visitorType.value);
+    console.log(selectedTags.value)
 }
 
 // 닫기 버튼
