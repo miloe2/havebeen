@@ -69,6 +69,11 @@ import MoreButton from '../Ui/MoreButton.vue';
 import DimmedBlack from '~/components/Ui/DimmedBlack.vue';
 import RateStar from '../Ui/RateStar.vue';
 import reviewsTag from '~/assets/data/reviewsTag.json';
+import axios from 'axios';
+const route = useRoute();
+const BASE_URL = process.env.BASE_URL;
+const exhibitionId = route.params.id
+
 const tagArray = ref(new Array(reviewsTag.length).fill(false));
 const reviewText = ref();
 // const handleComments = () => {
@@ -102,19 +107,29 @@ const findTags = () => {
 
 }
 
-const sendReview  = () => {
-    findTags();
-    console.log(reviewText.value)
-    console.log(ratedStar.value);
-    console.log(visitorType.value);
-    console.log(selectedTags.value)
-}
-
 // 닫기 버튼
 const emits = defineEmits(['close'])
 const closeBtn = () => {
     emits('close')
 };
+const sendReview  = async () => {
+    findTags();
+    try{
+        await axios.post(`/api/exhibitions/${exhibitionId}/reviews`, {
+                user_id : 1,
+                rate_stars : ratedStar.value,
+                comment : reviewText.value,
+                visitor_type : visitorType.value,
+                tag : selectedTags.value.toString(),
+                image_cnt : 1,
+                img1 : "https://source.unsplash.com/random/400x300"
+        });
+
+    }   catch (error){
+        console.log(error)
+    } 
+    closeBtn();
+}
 
 </script>
 <style scoped>

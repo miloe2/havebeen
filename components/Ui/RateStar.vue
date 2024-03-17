@@ -15,7 +15,6 @@
     </div>
 </template>
 <script setup>
-import { defineEmits, ref } from 'vue';
 const emits = defineEmits(['update:star'])
 const handleStar = (event) => {
     emits('update:star', event)
