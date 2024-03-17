@@ -11,3 +11,11 @@ export const eventPeried = (start :string, finish:string)  => {
     
     return `${year1}.${month1}.${day1} - ${year2}.${month2}.${day2}`
 }
+
+export const formattedDate = ( dateStr :Date) => {
+    const year = dateStr.getFullYear()
+    const month = dateStr.getMonth()+1 
+    const day = dateStr.getDate()
+
+    return `${year}.${month}.${day}`
+}

@@ -14,7 +14,7 @@
             </div>
 
             <div class="w-full flex items-center"> 
-                <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-9 h-9 mr-4 ring-1 ring-zinc-200 rounded-full">
+                <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-9 h-9 mr-4 ">
                 <p class="font-medium">ID ? anyone</p>
             </div>
             <div class="w-full bg-red-0 mt-4">
@@ -43,6 +43,7 @@
 </template>
 <script setup>
 import DimmedBlack from '~/components/Ui/DimmedBlack.vue';
+const reviewsTag = ['바이어', '참관객', '전시참가업체', '전시장 위치', '전시장 시설', '부스 디자인', '제품/서비스 다양성', '세미나 및 교육', '비즈니스 매칭', '네트워킹' ]
 const emits = defineEmits(['close'])
 const closeBtn = () => {
     emits('close')
