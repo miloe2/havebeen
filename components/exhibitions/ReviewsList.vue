@@ -20,7 +20,7 @@
                 <img :src="item.img1" alt="" class="w-full h-full object-cover rounded-md">
             </div>
             <div class=" w-full h-auto flex mt-4 space-x-2">
-                <div v-for="(item, index) in item.tag" :key="index" class="px-3 text-xs  font-light py-1 rounded-full text-white bg-zinc-950 flex justify-center items-center">{{ item }}</div>
+                <div v-for="(item, index) in item.tag" :key="index" class="px-3 text-xs  font-light py-1 rounded-full text-stone-50 bg-stone-950 flex justify-center items-center">{{ item }}</div>
             </div>
             
             <div v-if="index !== dummy.length -1" class="bg-zinc-200 w-full h-[2px] mt-8"></div>
@@ -34,7 +34,6 @@
 <script setup>
 import { formattedDate } from '~/utils/formatUnit';
 // Feature Rating 4.8Quality of Participants 4.4Variety of Products 5.0Display & Presentation 3.3Networking Opportunity 4.0Exhibitors & Vendors 5.0Format of Event 5.0Quality of Products Organizer Rating 5.0Communication 4.8Registration Process 5.0Staff Helpfulness 3.5Execution Quality 4.0Arrangements 5.0Shuttle Service User Rating 4.2/5 79 Ratings | 36 Reviews
-const reviewsTag = ['B2B', 'B2C', '전시참가사', '전시장위치', '전시장시설', '부스디자인', '제품/서비스', '세미나/교육', '비즈니스매칭', '네트워킹' ]
 const formattedVisitType = (type) => {
     switch(type) {
         case 0 : return 'Visitor'
