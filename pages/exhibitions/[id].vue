@@ -1,5 +1,5 @@
 <template>
-    <div class="xl:w-[1150px] w-full min-h-screen  mx-auto mb-40 ">
+    <div class="xl:w-[1024px] w-full min-h-screen  mx-auto mb-40 ">
         <div v-if="!pending">
             <InfoDetail :exhibitionsDetail="data.exhibitionDetail" />
             <DetailPhotos/>

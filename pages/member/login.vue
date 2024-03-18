@@ -1,5 +1,5 @@
 <template >
-    <div class="lg:w-[1024px] w-full b0 mx-auto">
+    <div class="lg:w-[1024px] w-full b0 mx-auto absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2">
         <LoginModal/>
     </div>
 </template>

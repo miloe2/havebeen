@@ -42,7 +42,6 @@ const reviewList = ref();
 const fetchReviewsList = async() => {
     try {
         const rsp = await axios.get(`/api/exhibitions/${exhibitionId}/reviews-list`);
-        console.log(rsp);
         reviewList.value =rsp.data;
         return rsp;
     } catch (error){
@@ -51,7 +50,6 @@ const fetchReviewsList = async() => {
 }
 onMounted(() => {
     fetchReviewsList();
-    console.log(reviewList.value)
 })
 
 

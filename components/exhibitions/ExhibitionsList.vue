@@ -8,7 +8,7 @@
         </div>
 
     <div class="w-full mt-4 h-auto grid  
-    xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 ">
+    xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
         <ul v-for="(item, index) in list" :key="index" class="w-full">
             <li class="w-full space-y-1 cursor-pointer" @click="goToDetail(item)">
                 <ExhibitionsCard 
