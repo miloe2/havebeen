@@ -3,7 +3,6 @@ import type { FieldPacket, RowDataPacket } from 'mysql2';
 import { connectToDatabase } from '~/server/index'; 
 
 export default defineEventHandler(async (event) => {
-    console.log('start')
     const id = getRouterParam(event, 'id')
     const sql = `SELECT * FROM t_exhibitions
     WHERE ID = ? `

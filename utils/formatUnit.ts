@@ -19,3 +19,17 @@ export const formattedDate = ( dateStr :Date) => {
 
     return `${year}.${month}.${day}`
 }
+
+export const formattedVisitType = (type :number) => {
+    switch(type) {
+        case 0 : return 'Visitor'
+        case 1 : return 'Buyer'
+        case 2 : return 'Exhibitior' 
+        case 3 : return 'Media' 
+    }
+};
+
+export const tagSlice = (tag :string) => {
+    const result = tag.split(',')
+    return result;
+}

@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const pool = await connectToDatabase();
     try {
         const sql = `INSERT INTO t_reviews 
-        (user_id, exhibitions_id, rate_stars, comment, visitor_type, tag, image_cnt, img1, img2, img3) 
+        (user_id, exhibition_id, rate_stars, comment, visitor_type, tag, image_cnt, img1, img2, img3) 
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         // null이 허용되는 필드에 대해 undefined 대신 null을 할당
         const params = [
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
             reviewData.img3 || null,
         ];
         console.log(params)
-        // await pool.execute(sql, params) as [RowDataPacket[], FieldPacket[]];
+        await pool.execute(sql, params) as [RowDataPacket[], FieldPacket[]];
 
         return { success : true, message : '리뷰 전송 성공'}
     } catch (error) {

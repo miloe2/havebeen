@@ -30,16 +30,20 @@
                 <p class="font-semibold">참가 유형 </p>
                 <div class="mt-3">
                     <button class="px-3 py-1 mr-2 mb-2 rounded-full text-sm cursor-pointer" 
-                    :class="visitorType === 'visitor' ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
-                    @click="handleVisitor('visitor')">참관객</button>
+                    :class="visitorType === 0 ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
+                    @click="handleVisitor(0)">참관객</button>
 
                     <button class="px-3 py-1 mr-2 mb-2 rounded-full text-sm cursor-pointer" 
-                    :class="visitorType === 'buyer' ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
-                    @click="handleVisitor('buyer')">업계관계자</button>
+                    :class="visitorType === 1 ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
+                    @click="handleVisitor(1)">업계관계자</button>
 
                     <button class="px-3 py-1 mr-2  mb-2 rounded-full text-sm cursor-pointer" 
-                    :class="visitorType === 'exhibitor' ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
-                    @click="handleVisitor('exhibitor')">전시참가기업</button>
+                    :class="visitorType === 2 ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
+                    @click="handleVisitor(2)">전시참가기업</button>
+                    
+                    <button class="px-3 py-1 mr-2  mb-2 rounded-full text-sm cursor-pointer" 
+                    :class="visitorType === 3 ? 'bg-stone-950 text-stone-50' : 'bg-zinc-200'"
+                    @click="handleVisitor(3)">미디어</button>
                 </div>
             </div>
             <div class="mt-6">
