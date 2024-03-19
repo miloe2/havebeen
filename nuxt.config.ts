@@ -1,11 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  typescript: {
+    typeCheck: true
+  },
   css: ['./assets/css/style.css'],
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@sidebase/nuxt-auth'
   ],
-  
+  auth: {
+      provider: {
+          type: 'authjs'
+      }
+  },
+  runtimeConfig : {
+    authSecret : process.env.AUTH_SECRET
+  },
   devtools: { enabled: true },
   // runtimeConfig : {
   //   MONGO_URL: process.env.MONGO_URL

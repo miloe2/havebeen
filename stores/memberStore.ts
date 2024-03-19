@@ -8,7 +8,7 @@ export const useMemberStore = defineStore('member', {
     actions : {
         async fetchLoginData(id:string, pw:string){
             try{
-                const data = await $fetch(`/api/member/login`, {
+                const data = await $fetch(`/api/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
