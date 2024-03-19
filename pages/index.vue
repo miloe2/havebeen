@@ -6,9 +6,9 @@
 <script setup lang="ts">
 // import ClosetList from '~/components/home/ClosetList';
 import ClosetList from '~/components/home/ClosetList.vue';
-definePageMeta({
-    middleware :'auth',
-})
+// definePageMeta({
+//     middleware :'auth',
+// })
 
 // const { data: exhibitions, refresh } = await useAsyncData(
 //   () => $fetch(`/api/exhibitions/upcoming`)
