@@ -29,19 +29,19 @@
             <div class="mt-3 flex space-x-3 ">
                 <div class="flex ring-1 rounded-full px-3 h-7 transition-all duration-100"  
                 @click="handleLike"
-                :class=" isLiked ? 'ring-red-500 text-zinc-50 bg-red-500' : 'text-zinc-500 ring-zinc-500' ">
+                :class=" actionsState.like ? 'ring-red-500 text-zinc-50 bg-red-500' : 'text-zinc-500 ring-zinc-500' ">
                     <button class=" flex flex-row items-center">
-                        <i :class="isLiked ? 'fas fa-heart' : 'far fa-heart'" class="bg-blue-0 text-base"></i>
+                        <i :class="actionsState.like ? 'fas fa-heart' : 'far fa-heart'" class="bg-blue-0 text-base"></i>
                     </button>
                 </div>
 
                 <div class="flex ring-1 rounded-full px-3 h-7 transition-all duration-100"  
                 @click="handleVisit"
-                :class=" isVisit ? 'ring-green-500 text-zinc-50 bg-green-500' : 'text-zinc-500 ring-zinc-500' ">
+                :class=" actionsState.visited ? 'ring-green-500 text-zinc-50 bg-green-500' : 'text-zinc-500 ring-zinc-500' ">
                     <button class=" flex flex-row items-center">
-                        <i :class="isVisit ? 'fas fa-check mr-1': 'hidden'" class="bg-blue-0 text-base"></i>
+                        <i :class="actionsState.visited ? 'fas fa-check mr-1': 'hidden'" class="bg-blue-0 text-base"></i>
                     </button>
-                    <div class="flex justify-center items-center">{{ isVisit ? 'VISITED' : 'VISIT' }}</div>
+                    <div class="flex justify-center items-center">{{ actionsState.visited ? 'VISITED' : 'VISIT' }}</div>
                 </div>
                 
 
@@ -55,30 +55,57 @@
 </template>
 <script setup>
 import { eventPeried } from '~/utils/formatUnit';
+import { debounce } from 'lodash';
+const auth = useAuth();
+const loggedInUser = computed(() => auth.data?.value.user.rows[0] || null)
+const route = useRoute();
+const exhibitionId = route.params.id;
 const props = defineProps({
     exhibitionsDetail : {type : Object, required : true},
-    userActions : {type : Object },
+    userActions : { type : Object },
 });
-const isLiked = ref(false);
-const isVisit = ref(false);
+const actionsState = ref({
+    like : 0,
+    visited : 0,
+})
+// const isLiked = ref(false);
+// const isVisit = ref(false);
+const likeAction = props.userActions?.find(l => l.action_type === 'like');
+const visitAction = props.userActions?.find(v => v.action_type === 'visited');
+const booleanType = (value) => value === true  ? 1 : 0
+const updateButtonValue = async (type) => {
 
-const likeValue = props.userActions?.find(l => {
-    console.log(l.action_type , l.action_value)
-    l.action_type === 'like';
-    isLiked.value = l.action_value;
-});
-const visitValue = props.userActions?.find(v => {
-    console.log(v.action_type , v.action_value)
-    v.action_type === 'visited';
-    isVisit.value = v.action_value;
-});
+    await useFetch(`/api/exhibitions/${exhibitionId}/edit-actions`,{
+        method : 'POST',
+        params : {
+            user_id :loggedInUser.value.id,
+            action_type : type,
+            action_value : booleanType(actionsState.value[type])
+        }
+        
+    }) 
+}
+const debounceUpdate = debounce ((type )=>{
+    updateButtonValue(type)
+}, 3000 )
 
 const handleLike = () => {
-    isLiked.value = !isLiked.value
+    actionsState.value.like = !actionsState.value.like;
+    debounceUpdate('like')
 }
 const handleVisit = () => {
-    isVisit.value = !isVisit.value
+    actionsState.value.visited = !actionsState.value.visited;
+    debounceUpdate('visited')
 }
+onMounted(() => {
+    if (likeAction) {
+        actionsState.value.like = likeAction.action_value 
+    }
+    if (visitAction) {
+        actionsState.value.visited = visitAction.action_value 
+    }
+});
+
 </script>
 
 <style scoped>
