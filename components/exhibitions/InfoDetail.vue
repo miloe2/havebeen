@@ -75,15 +75,19 @@ const visitAction = props.userActions?.find(v => v.action_type === 'visited');
 const booleanType = (value) => value === true  ? 1 : 0
 const updateButtonValue = async (type) => {
 
-    await useFetch(`/api/exhibitions/${exhibitionId}/edit-actions`,{
-        method : 'POST',
-        params : {
-            user_id :loggedInUser.value.id,
-            action_type : type,
-            action_value : booleanType(actionsState.value[type])
-        }
-        
-    }) 
+    try {
+        await useFetch(`/api/exhibitions/${exhibitionId}/edit-actions`,{
+            method : 'POST',
+            params : {
+                user_id :loggedInUser.value.id,
+                action_type : type,
+                action_value : booleanType(actionsState.value[type])
+            }
+            
+        }) 
+    } catch (error) {
+        console.log(error)        
+    }
 }
 const debounceUpdate = debounce ((type )=>{
     updateButtonValue(type)
