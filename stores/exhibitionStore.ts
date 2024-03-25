@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useAsyncData } from "#app";
-import type { DataItem , DataByMonth, DataByCategory} from '~/types/dataTypes';
+import type { DataItem , DataByMonth, DataByCategory, UserActions} from '~/types/dataTypes';
 
 
 export const useExhibitionStore = defineStore('exhibitions', {
@@ -10,6 +10,7 @@ export const useExhibitionStore = defineStore('exhibitions', {
         closestExhibitions  : [] as DataItem[] | null,
         exhibitionDetail : [] as DataItem[] | null,
         exhibitionsByCategory : [] as DataByCategory[] | null,
+        userActions : [] as UserActions[] | null,
         searchYear : new Date().getFullYear(),
         searchMonth : new Date().getMonth() + 1
     }),
@@ -67,6 +68,18 @@ export const useExhibitionStore = defineStore('exhibitions', {
                 this.exhibitionDetail = data;
             } catch(error){
                 console.log(error)
+            }
+        },
+        async fetchUserActions(exhibition_id : unknown, user_id : number){
+            try {
+                const data = await $fetch<UserActions[]>(`/api/exhibitions/${exhibition_id}/actions`,
+                {
+                    method:'GET',
+                    params : { user_id }
+                });
+                this.userActions = data;
+            } catch (error) {
+                console.log(error)      
             }
         },
         incrementMonth() {

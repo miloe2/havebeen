@@ -1,14 +1,15 @@
 <template>
     <div class="xl:w-[1024px] w-full min-h-screen  mx-auto mb-40 ">
         <div v-if="!pending">
-            <InfoDetail :exhibitionsDetail="data.exhibitionDetail" />
+            <InfoDetail 
+            :exhibitionsDetail="data.exhibitionDetail" 
+            :userActions="data.userActions" />
             <DetailPhotos/>
             <ExhibitionReview/>
             <RelativeExhibitions 
             :category="data.exhibitionDetail.category"
             :list="data.exhibitionsByCategory"/>
         </div>
-
     </div>
 </template>
 <script setup>
@@ -17,8 +18,12 @@ import InfoDetail from '~/components/exhibitions/InfoDetail.vue';
 import DetailPhotos from '~/components/exhibitions/DetailPhotos.vue';
 import RelativeExhibitions from '~/components/exhibitions/RelativeExhibitions.vue';
 import ExhibitionReview from '~/components/exhibitions/ExhibitionReview.vue';
+const auth = useAuth();
 const route = useRoute();
+const loggedInUser = computed(() => auth.data.value.user.rows[0])
 const exhibitionId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+
+
 const { data, pending, error, refresh } = useAsyncData(async () => {
     const exhibitionStore = useExhibitionStore();
     // 먼저 전시회 상세 정보를 불러옵니다.
@@ -31,29 +36,17 @@ const { data, pending, error, refresh } = useAsyncData(async () => {
     if (category) {
         await exhibitionStore.fetchSimilarExhibitions(category);
     }
-
+    if(loggedInUser){
+        await exhibitionStore.fetchUserActions(exhibitionId, loggedInUser?.value.id)
+    }
     // 두 조회 결과를 함께 반환합니다.
     return {
         exhibitionDetail: exhibitionStore.exhibitionDetail,
         exhibitionsByCategory: exhibitionStore.exhibitionsByCategory,
+        userActions : exhibitionStore.userActions,
     };
 });
 
-// let exhibitionId = route.params.id as string;
-// const exhibitionId = route.params.id as string;
-// const { data: exhibitionDetail, pending, error, refresh } = useAsyncData(async () => {
-//     const exhibitionStore = useExhibitionStore();
-//     await exhibitionStore.fetchExhibitionDetail(exhibitionId);
-//     await exhibitionStore.fetchSimilarExhibitons(exhibitionDetail[0].category);
-
-//     return {exhibitionStore.exhibitionDetail , exhibitionStore.exhibitionsByCategory};
-// });
-// const { data: exhibitionsByCategory } = useAsyncData(async () => {
-//     const exhibitionStore = useExhibitionStore();
-//     await exhibitionStore.fetchSimilarExhibitons(exhibitionDetail[0].category);
-//     return exhibitionStore.exhibitionsByCategory;
-// });
-// `exhibitionId`를 사용하여 데이터를 가져오는 로직
 </script>
 
 <style>

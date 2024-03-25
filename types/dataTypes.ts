@@ -27,6 +27,13 @@ export interface DataByCategory {
     category : string;
     data : DataItem[];
 }
+export interface UserActions {
+    id:number;
+    user_id : number;
+    exhibitions_id : number;
+    action_type : string;
+    created_at : Date;
+}
 
 export interface FieldMapping {
     [key : string] : string;
