@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-blue-50 p-4">
+    <div class="w-full bg-blue-50 p-4 min-h-100">
       Chat Room!!
       <input v-model="message" type="text" placeholder="Type a message..." class="border border-gray-300 p-2" />
       <button @click="sendMessage" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
