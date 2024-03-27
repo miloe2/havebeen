@@ -1,6 +1,6 @@
 <template>
     <!-- <div class="w-full h-full bg-zinc-50 -mt-20 pt-20"> -->
-    <div class="xl:w-[1024px] w-full min-h-screen  mx-auto  mb-40">
+    <div class="xl:w-[1024px] w-full  mx-auto  mb-40">
         <div class="text-3xl font-bold montserrat mb-10">Chat</div>
             <div class="w-full grid grid-cols-3">
                 <div class="col-span-1">
