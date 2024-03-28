@@ -4,7 +4,7 @@ import { connectToDatabase } from '~/server/index';
 
 export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
-    const sql =`SELECT t_reviews.*, t_users.user_name
+    const sql =`SELECT t_reviews.*, t_users.user_name, t_users.user_img
     FROM t_reviews JOIN t_users ON t_users.id = t_reviews.user_id
     WHERE t_reviews.exhibition_id = ?`
     const pool = await connectToDatabase();

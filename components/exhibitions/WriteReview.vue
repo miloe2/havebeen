@@ -14,7 +14,12 @@
             </div>
 
             <div class="w-full flex items-center"> 
-                <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-7 h-7 mr-2 ">
+                <div class="flex items-center">
+                    <!-- {{ user_img }} -->
+                    <img v-if="user.user_img" :src="user.user_img" alt="" class="w-7 mr-3 rounded-full">
+                    <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-7 mr-3">
+                </div>
+                <!-- <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-7 h-7 mr-2 "> -->
                 <p class="font-medium">{{ user ? user.user_name : '익명' }}</p>
             </div>
             <div class="w-full bg-red-0 mt-4">
@@ -102,7 +107,7 @@ import DimmedBlack from '~/components/Ui/DimmedBlack.vue';
 import RateStar from '../Ui/RateStar.vue';
 import reviewsTag from '~/assets/data/reviewsTag.json';
 import axios from 'axios';
-const {data} = useAuth();
+const { data } = useAuth();
 const user = data.value.user.rows[0]
 const route = useRoute();
 const BASE_URL = process.env.BASE_URL;

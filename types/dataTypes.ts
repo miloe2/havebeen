@@ -34,7 +34,21 @@ export interface UserActions {
     action_type : string;
     created_at : Date;
 }
+// Define a type for your user data
+export interface UserData {
+    id: number;
+    user_id: string;
+    user_pwd: string;
+    user_name: string;
+    created_at: Date;
+    del_flag: number;
+    user_img?: string;
+  }
+  
+ interface AuthData {
+    user: {
+      rows: UserData[];
+    };
+  }
 
-export interface FieldMapping {
-    [key : string] : string;
-}
+  
