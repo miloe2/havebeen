@@ -146,21 +146,21 @@ const result = [
 //     -- 필요한 경우 추가적인 필드를 여기에 정의할 수 있습니다.
 // );
 
-const socket = io('http://localhost:3001');
-const message = ref('');
-const messages = ref([]);
+// const socket = io('http://localhost:3001');
+// const message = ref('');
+// const messages = ref([]);
 
-const sendMessage = () => {
-if (message.value.trim()) {
-    socket.emit('message', message.value);
-    message.value = ''; // 입력 필드 초기화
-}
-};
+// const sendMessage = () => {
+// if (message.value.trim()) {
+//     socket.emit('message', message.value);
+//     message.value = ''; // 입력 필드 초기화
+// }
+// };
 
-// 서버로부터 메시지 받기
-socket.on('message', (msg) => {
-messages.value.push(msg);
-});
+// // 서버로부터 메시지 받기
+// socket.on('message', (msg) => {
+// messages.value.push(msg);
+// });
 </script>
 <style scoped>
 .scroll::-webkit-scrollbar {

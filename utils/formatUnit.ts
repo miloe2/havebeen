@@ -25,7 +25,8 @@ export const formattedVisitType = (type :number) => {
         case 0 : return 'Visitor'
         case 1 : return 'Buyer'
         case 2 : return 'Exhibitior' 
-        case 3 : return 'Media' 
+        case 3 : return 'Media'
+        default : return '-'; 
     }
 };
 

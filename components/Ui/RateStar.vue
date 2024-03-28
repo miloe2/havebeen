@@ -25,7 +25,7 @@ const handleStar = (event) => {
 </script>
 
 <style scoped>
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+
 
 .rating { 
   border: none;

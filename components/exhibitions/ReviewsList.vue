@@ -1,24 +1,29 @@
 <template>
     <div>
-        <div>
+        <!-- <div>
             정렬 : 최신, 이미지, 방문자
-        </div>
+        </div> -->
         <div v-if="reviewList" 
             v-for="(item, index) in reviewList" :key="index" class=" py-4">
-            <div class="flex justify-between ">
+            <div class="flex justify-between bg-blue-00 ">
                 <div class="flex items-center">
-                    <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-8 mr-4">
-                    <span class="font-bold">{{ item.user_name }}</span>
+                    <img src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-10 mr-3">
+                    <span class="font-bold text-lg">{{ item.user_name }}</span>
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col items-end">
                     <!-- <span> {{ formattedDate(item.created_at) }}</span> -->
-                    <span> {{ formattedVisitType(item.visitor_type) }} </span>
-                    <span> {{ `별 ${item.rate_stars}`}} </span>
+                    <span class=""> {{ formattedVisitType(item.visitor_type) }} </span>
+                    <div class="fontawesome px-2 bg-zinc-900 w-12 rounded-md mt-1"> 
+                        <i class="fa fa-star text-yellow-400 mr-1"></i>
+                        <span class="text-zinc-200 ">{{ item.rate_stars}} </span>
+                    </div>
                 </div>
             </div>
             <p class="my-2">{{ item.comment }}</p>
-            <div class="w-40 h-24">
-                <img :src="item.img1" alt="" class="w-full h-full object-cover rounded-md">
+            <div class="w-auto h-24 flex space-x-2">
+                <div v-for="img in extractImages(item)" :key="item.id">
+                    <img :src="img" alt="" class=" object-cover rounded-md w-40 h-full">
+                </div>
             </div>
             <div class=" w-full h-auto flex mt-4 space-x-2">
                 <div v-for="(item, index) in tagSlice(item.tag)" :key="index" class="px-3 text-xs  font-light py-1 rounded-full text-stone-50 bg-stone-950 flex justify-center items-center">{{ item }}</div>
@@ -35,10 +40,22 @@
 <script setup>
 import { formattedDate, formattedVisitType, tagSlice } from '~/utils/formatUnit';
 import axios from 'axios';
-// Feature Rating 4.8Quality of Participants 4.4Variety of Products 5.0Display & Presentation 3.3Networking Opportunity 4.0Exhibitors & Vendors 5.0Format of Event 5.0Quality of Products Organizer Rating 5.0Communication 4.8Registration Process 5.0Staff Helpfulness 3.5Execution Quality 4.0Arrangements 5.0Shuttle Service User Rating 4.2/5 79 Ratings | 36 Reviews
 const route = useRoute();
 const exhibitionId = route.params.id;
 const reviewList = ref();
+const extractImages = (review) => {
+    // 이미지 필드명을 배열로 정의합니다.
+    const imageFields = ['img1', 'img2', 'img3'];
+
+    // reduce 메서드를 사용하여 이미지 URL 배열을 생성합니다.
+    return imageFields.reduce((acc, field) => {
+        const imageUrl = review[field];
+        if (imageUrl) { // imageUrl이 존재하면 (null이 아니면)
+            acc.push(imageUrl); // 결과 배열에 추가합니다.
+        }
+        return acc; // 변경된 결과 배열을 반환합니다.
+    }, []); // 초기값으로 빈 배열을 사용합니다.
+};
 const fetchReviewsList = async() => {
     try {
         const rsp = await axios.get(`/api/exhibitions/${exhibitionId}/reviews-list`);
