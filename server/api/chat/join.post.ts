@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     const pool = await connectToDatabase();
     try {
           // 채팅방 검색 쿼리 실행
-          const [existingRooms] = await pool.query(searchChatroomSql, [host, opponent]) as [RowDataPacket[], FieldPacket[]];;
+          const [existingRooms] = await pool.query(searchChatroomSql, [host, opponent]) as [RowDataPacket[], FieldPacket[]];
           let chatroom_id;
   
           if (existingRooms.length > 0) {

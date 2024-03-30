@@ -44,11 +44,15 @@ export interface UserData {
     del_flag: number;
     user_img?: string;
   }
-  
- interface AuthData {
-    user: {
-      rows: UserData[];
-    };
+  chatrooms: {
+    // chatroom_id: { cursor, messages }
   }
+interface Chatroom {
+    cursor : number,
+    messages : string[],
+} 
+export interface ChatroomsState {
+    [chatroom_id : number] : Chatroom
+}
 
   

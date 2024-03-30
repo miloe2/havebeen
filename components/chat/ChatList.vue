@@ -5,19 +5,22 @@
                 <input type="text" class="bg-stone-100 rounded-sm  w-full h-8  outline-none text-xs placeholder:text-xs pl-2"
                 placeholder="아이디를 검색해주세요">
             </div>
-            <div class="w-full py-4 flex my-2" v-for="(item, index) in props.chatList" :key="index">
-                <div class="w-11 h-11">
-                    <img v-if="item.member_images" :src="item.member_images" alt="" class="w-full h-full object-cover rounded-full">
-                    <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="">
-                </div>
-                <div class="ml-4 font-medium flex flex-col w-9/12">
-                    <div class="w-full  flex justify-between items-center"> 
-                       <span >{{ item.members }}</span> 
-                       <span class="font-normal text-xs text-stone-400 ">{{ formattedDate(new Date(item.created_at)) }}</span> 
+            <ul v-for="(item, index) in props.chatList" :key="index">
+                <li class="w-full py-4 flex my-2" @click="goChatroom(item.chatroom_id, item.members, item.member_images)">
+                    <div class="w-11 h-11">
+                        <img v-if="item.member_images" :src="item.member_images" alt="" class="w-full h-full object-cover rounded-full">
+                        <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="">
                     </div>
-                    <!-- <div class="font-normal text-sm w-full truncate">{{ item.message }}</div> -->
-                </div>
-            </div>
+                    <div class="ml-4 font-medium flex flex-col w-9/12">
+                        <div class="w-full  flex justify-between items-center"> 
+                        <span >{{ item.members }}</span> 
+                        <span class="font-normal text-xs text-stone-400 ">{{ formattedDate(item.created_at) }}</span> 
+                        </div>
+                        <!-- <div class="font-normal text-sm w-full truncate">{{ item.message }}</div> -->
+                    </div>
+                    
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -26,10 +29,12 @@ import { formattedDate } from '#imports';
 const props = defineProps({
     chatList : { type : Array }
 });
+const emits = defineEmits(['setChatroom']);
 // TODO 채팅룸메시지 불러오기, 
-
-const goChatroom = () => {
-
+const chatStore = useChatStore();
+const goChatroom = async (chatroom_id, member, image) => {
+    await chatStore.fetchMessages(chatroom_id);
+    emits('setChatroom', chatroom_id, member, image)
 }
 // -- 메시지 테이블
 // CREATE TABLE t_messages (

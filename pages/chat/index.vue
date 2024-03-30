@@ -7,10 +7,10 @@
         <div class="text-3xl font-bold montserrat mb-4">Chat</div>
             <div class="w-full grid grid-cols-3">
                 <div class="col-span-1">
-                    <ChatList :chatList="chatList"/>
+                    <ChatList :chatList="chatList" @setChatroom="setChatroom"/>
                 </div>
                 <div class="col-span-2">
-                    <ChatRoom/>
+                    <ChatRoom :chatroomInfo="chatroomInfo"/>
                 </div>
             </div>
         </div>
@@ -20,6 +20,16 @@
 import ChatList from '../../components/chat/ChatList.vue';
 import ChatRoom from '../../components/chat/ChatRoom.vue';
 import { useAsyncData } from 'nuxt/app'
+const chatroomInfo = ref({
+    id : null,
+    member : null,
+    image : null,
+});
+const setChatroom = (id, member, image) => {
+    chatroomInfo.value.id = id
+    chatroomInfo.value.member = member
+    chatroomInfo.value.image = image
+};
 
 definePageMeta({
     middleware :'auth',
