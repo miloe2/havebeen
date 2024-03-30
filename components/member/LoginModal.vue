@@ -44,7 +44,6 @@
 import { ref } from 'vue';
 import { useMemberStore } from '~/stores/memberStore';
 const { signIn } = useAuth();
-const memberStore = useMemberStore();
 const router = useRouter();
 const isClicked = ref('social');
 const handleSocialBtn = (btn) => {

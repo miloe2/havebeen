@@ -21,7 +21,6 @@ export default defineEventHandler(async (event) => {
     try {
           // 채팅방 검색 쿼리 실행
           const [existingRooms] = await pool.query(searchChatroomSql, [host, opponent]) as [RowDataPacket[], FieldPacket[]];;
-
           let chatroom_id;
   
           if (existingRooms.length > 0) {
@@ -30,8 +29,8 @@ export default defineEventHandler(async (event) => {
           } else {
             const [chatroomResult] = await pool.execute<ResultSetHeader>(createChatroomSql);
             chatroom_id = chatroomResult.insertId;
-            const [hostResult] = await pool.execute(memberJoinSql, [chatroom_id, host]);
-            const [opponentResult] = await pool.execute(memberJoinSql, [chatroom_id, opponent]);
+            await pool.execute(memberJoinSql, [chatroom_id, host]);
+            await pool.execute(memberJoinSql, [chatroom_id, opponent]);
           }
         return { success : true, chatroom_id : chatroom_id} 
     } catch (error) {

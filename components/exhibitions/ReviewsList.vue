@@ -23,7 +23,7 @@
             </div>
             <ul v-if="contactModal.isOpen" class="dropdown-menu ">
                 <li 
-                @click="createChatRoom(item.user_id)"
+                @click="handleChatroom(item.user_id)"
                 class="hover:bg-zinc-200 rounded-t-lg"><i class="far fa-comment"></i>채팅하기</li>
                 <li  class="hover:bg-zinc-200 rounded-b-lg"><i class="fas fa-user-circle"></i>유저정보</li>
             </ul>
@@ -51,36 +51,34 @@
 <script setup>
 import { formattedDate, formattedVisitType, tagSlice } from '~/utils/formatUnit';
 import axios from 'axios';
+import { useChatStore } from '~/stores/chatStore';
 const route = useRoute();
 const { data } = useAuth(); 
 const user = data.value.user.rows[0]
-
+const chatStore = useChatStore();
+const router = useRouter();
 const exhibitionId = route.params.id;
 const reviewList = ref();
 const contactModal = ref({
     isOpen : false
 });
-
-///// 같은 방에 중복 막음 근데, 다시 채팅방 아이디 리턴값이 안옴.
-const createChatRoom = async (opponent) => {
-    console.log('start')
-
+const handleChatroom = async (opponent) => {
     if(!user){
         return '로그인해야됨!!!!'
     }
     const user_id = user.id;
     const opponent_id = opponent;
-    console.log(user_id, opponent_id)
     if(user_id === opponent_id){
         return '같은아이디 안됨!!';
     }
     try {
-        const rsp = await axios.post(`/api/chat/join`, {            
-            user_id : user_id,
-            opponent_id : opponent_id
-        });
-        return rsp;
-    } catch (error){
+        const rsp = await chatStore.createChatroom(user_id, opponent_id);
+        if(rsp.success){
+            router.push('/chat')
+        } else {
+            console.log(rsp)
+        } 
+    } catch (error) {
         console.log(error)
     }
     finally{

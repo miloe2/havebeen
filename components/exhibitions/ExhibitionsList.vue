@@ -28,7 +28,6 @@
 <script setup>
 import ExhibitionsCard from './ExhibitionsCard.vue';
 import { useExhibitionStore } from '~/stores/exhibitionStore';
-import { useAsyncData } from 'nuxt/app'
 import debounce from 'lodash/debounce';
 const router = useRouter();
 // const today = new Date();
