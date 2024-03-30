@@ -1,5 +1,5 @@
 <template >
-    <div class="w-full bg-stone-100 min-h-160 flex  justify-center p-6">
+    <div class="w-full bg-stone-100 min-h-160 flex items-center justify-center p-6">
         <div class="w-full h-140 bg-white rounded-md  px-4">
             <div class="w-full bg-blue-00 mt-6 mb-4">
                 <input type="text" class="bg-stone-100 rounded-sm  w-full h-8  outline-none text-xs placeholder:text-xs pl-2"
@@ -25,34 +25,12 @@
 import { formattedDate } from '#imports';
 const props = defineProps({
     chatList : { type : Array }
-})
-const result =
-[ 
-    {
-        id : 0,
-        img : 'img',
-        name : 'helly',
-        message : 'heyheyheyheyheyheyheyheyheyheyhey',
-        sent_at : new Date(),
+});
+// TODO 채팅룸메시지 불러오기, 
 
-    },
-    {
-        id : 1,
-        img : 'img',
-        name : 'helly',
-        message : 'heyheyheyheyheyheyheyheyheyheyhey',
-        sent_at : new Date(),
+const goChatroom = () => {
 
-    },
-    {
-        id : 2,
-        img : 'img',
-        name : 'helly',
-        message : 'heyheyheyheyheyheyheyheyheyheyhey',
-        sent_at : new Date(),
-
-    },
-]
+}
 // -- 메시지 테이블
 // CREATE TABLE t_messages (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
