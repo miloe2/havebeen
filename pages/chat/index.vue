@@ -2,12 +2,11 @@
     <div v-if="pending">
         로딩중
     </div>
-    <!-- <div class="w-full h-full bg-zinc-50 -mt-20 pt-20"> -->
-    <div v-else class="xl:w-[1024px] w-full  mx-auto overflow-hidden">
+        <div v-else class="xl:w-[1024px] w-full  mx-auto overflow-hidden">
         <div class="text-3xl font-bold montserrat mb-4">Chat</div>
             <div class="w-full grid grid-cols-3">
                 <div class="col-span-1">
-                    <ChatList :chatList="chatList" @setChatroom="setChatroom"/>
+                    <ChatList :chatList="chatList.chatroom" :latestMsg="chatList.latestMsg" @setChatroom="setChatroom"/>
                 </div>
                 <div class="col-span-2">
                     <ChatRoom :chatroomInfo="chatroomInfo"/>

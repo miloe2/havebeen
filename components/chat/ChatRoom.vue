@@ -1,7 +1,7 @@
 <template>
     <div class="w-full bg-stone-100 min-h-160 flex items-center  justify-center p-6 relative">
-        <div class="w-full h-140 bg-white rounded-md  p-6  pb-10 ">
-            <div class="flex mb-10">
+        <div class="w-full h-140 bg-white rounded-md  p-6  pb-10 "v-if="messages">
+            <div class="flex mb-10 ">
                 <img v-if="chatroomInfo.image" :src="chatroomInfo.image" alt="" class="w-6 h-6 rounded-full mr-2">
                             <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-6 h-6 mr-2">
                 <span class="font-medium">{{ chatroomInfo.member }}님과의 채팅</span>

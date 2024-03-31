@@ -14,9 +14,9 @@
                     <div class="ml-4 font-medium flex flex-col w-9/12">
                         <div class="w-full  flex justify-between items-center"> 
                         <span >{{ item.members }}</span> 
-                        <span class="font-normal text-xs text-stone-400 ">{{ formattedDate(item.created_at) }}</span> 
+                        <span class="font-normal text-xs text-stone-400 ">{{ formattedDate(props.latestMsg[index].created_at ) }}</span> 
                         </div>
-                        <!-- <div class="font-normal text-sm w-full truncate">{{ item.message }}</div> -->
+                        <div class="font-normal text-sm w-full truncate">{{ props.latestMsg[index].message }}</div>
                     </div>
                     
                 </li>
@@ -27,7 +27,8 @@
 <script setup>
 import { formattedDate } from '#imports';
 const props = defineProps({
-    chatList : { type : Array }
+    chatList : { type : Array },
+    latestMsg : { type : Array }
 });
 const emits = defineEmits(['setChatroom']);
 // TODO 채팅룸메시지 불러오기, 
