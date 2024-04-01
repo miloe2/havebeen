@@ -11,7 +11,7 @@
                         <img :src="user.user_img" alt="">
                     </div>
                     <div class="text-xl font-bold">
-                        {{  user.user_name }}oohr
+                        {{  user.user_name }}
                     </div>
                 </div>
 

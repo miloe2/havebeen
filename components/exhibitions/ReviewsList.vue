@@ -6,7 +6,7 @@
         <div v-if="reviewList" 
             v-for="(item, index) in reviewList" :key="index" class=" py-4 relative">
             <div class="flex justify-between bg-blue-00 ">
-                <div class="flex items-center cursor-pointer" @click="() => contactModal.isOpen = !contactModal.isOpen">
+                <div class="flex items-center cursor-pointer" @click="handleContactModal(index)">
                     <img v-if="item.user_img" :src="item.user_img" alt="" class="w-10 h-10 mr-3 rounded-full">
                     <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-10 mr-3">
                     <span class="font-bold text-lg">{{ item.user_name }}</span>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <ul v-if="contactModal.isOpen" class="dropdown-menu ">
+            <ul v-if="contactModal.isOpen && contactModal.index === index" class="dropdown-menu ">
                 <li 
                 @click="handleChatroom(item.user_id)"
                 class="hover:bg-zinc-200 rounded-t-lg"><i class="far fa-comment"></i>채팅하기</li>
@@ -60,9 +60,14 @@ const router = useRouter();
 const exhibitionId = route.params.id;
 const reviewList = ref();
 const contactModal = ref({
-    isOpen : false
+    isOpen : false,
+    index : null,
 });
-const handleChatroom = async (opponent) => {
+const handleContactModal = (index) => {
+    contactModal.value.isOpen = !contactModal.value.isOpen;
+    contactModal.value.index = index
+}
+const handleChatroom = async (opponent ) => {
     if(!user){
         return '로그인해야됨!!!!'
     }

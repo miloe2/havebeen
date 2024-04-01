@@ -5,18 +5,19 @@
                 <input type="text" class="bg-stone-100 rounded-sm  w-full h-8  outline-none text-xs placeholder:text-xs pl-2"
                 placeholder="아이디를 검색해주세요">
             </div>
+            <!-- {{ props.chatList }} -->
             <ul v-for="(item, index) in props.chatList" :key="index">
                 <li class="w-full py-4 flex my-2" @click="goChatroom(item.chatroom_id, item.members, item.member_images)">
                     <div class="w-11 h-11">
-                        <img v-if="item.member_images" :src="item.member_images" alt="" class="w-full h-full object-cover rounded-full">
+                        <img v-if="item.member_images" :src="item.member_images" alt="" class="w-11 h-11 object-cover rounded-full">
                         <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="">
                     </div>
                     <div class="ml-4 font-medium flex flex-col w-9/12">
                         <div class="w-full  flex justify-between items-center"> 
                         <span >{{ item.members }}</span> 
-                        <span class="font-normal text-xs text-stone-400 ">{{ formattedDate(props.latestMsg[index].created_at ) }}</span> 
+                        <!-- <span class="font-normal text-xs text-stone-400 ">{{ props.latestMsg ? formattedDate(props.latestMsg[index].created_at) : '' }}</span>  -->
                         </div>
-                        <div class="font-normal text-sm w-full truncate">{{ props.latestMsg[index].message }}</div>
+                        <!-- <div class="font-normal text-sm w-full truncate">{{ props.latestMsg ? props.latestMsg[index].message : '' }}</div> -->
                     </div>
                     
                 </li>
@@ -26,17 +27,25 @@
 </template>
 <script setup>
 import { formattedDate } from '#imports';
+import { io } from 'socket.io-client';
 const props = defineProps({
     chatList : { type : Array },
     latestMsg : { type : Array }
 });
-const emits = defineEmits(['setChatroom']);
-// TODO 채팅룸메시지 불러오기, 
 const chatStore = useChatStore();
+const socket = io('http://localhost:3001');
+
+// 채팅방 NO, 사용자, 프로필 이미지 보내는 emits
+const emits = defineEmits(['setChatroom']);
+// 리스트 클릭 시 채팅방 정보 전달 / 채팅방 입장
 const goChatroom = async (chatroom_id, member, image) => {
     await chatStore.fetchMessages(chatroom_id);
-    emits('setChatroom', chatroom_id, member, image)
+    emits('setChatroom', chatroom_id, member, image);
+    // 사용자가 채팅방에 입장하는 이벤트 처리
+    socket.emit("join_chatroom", chatroom_id);
+    console.log('client clcick', chatroom_id)
 }
+
 // -- 메시지 테이블
 // CREATE TABLE t_messages (
 //     id INT AUTO_INCREMENT PRIMARY KEY,

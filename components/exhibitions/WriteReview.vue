@@ -164,7 +164,7 @@ const closeBtn = () => {
     emits('close')
 };
 const sendReview  = async () => {
-    const author = user? user.user_name : '익명'
+    const author = user.id
 
     findTags();
     try{
