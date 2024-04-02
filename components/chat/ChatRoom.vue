@@ -1,5 +1,8 @@
 <template>
     <div class="w-full bg-stone-100 min-h-160 flex items-center  justify-center p-6 relative">
+        <button class="bg-red-500" @click="sendMsg">send</button>
+      <div> test txt :  {{ testTxt }} </div>
+        <div>newMessages {{ newMessages }}</div>
         <!-- {{ props.chatroomInfo }} -->
         <div class="w-full h-140 bg-white rounded-md  p-6  pb-10 "v-if="existingMessages">
             <div class="flex mb-10 ">
@@ -78,7 +81,15 @@ const newMessages = ref([]);
 const test = ref('here');
 const sendTest = () => {
     io.in(chatroom_id).clients()
-}
+};
+const sendMsg = () => {
+    console.log('socket.on send 시작', test.value);
+    socket.emit('send_message', test.value  );
+};
+socket.on('receive_message', (message) => {
+    newMessages.value.push(message);
+    console.log('socket.on messgesg 받음', message)
+});
 
 const sendMessage = () => {
     const chatroom_id = props.chatroomInfo?.id;
@@ -92,11 +103,12 @@ const sendMessage = () => {
         msg.value = ''; // 입력 필드 초기화
     }
 };
-
-socket.on('message', (data) => {
-    console.log('서버로부터 메시지를 받았습니다:', data)
-    newMessages.value.push(data); // 화면에 즉시 표시
-});
+const testTxt =ref('');
+// socket.on('message-broadcast', (data) => {
+//     testTxt.value = data
+//     console.log('서버로부터 메시지를 받았습니다:', data)
+//     newMessages.value.push(data); // 화면에 즉시 표시
+// });
 
 
 

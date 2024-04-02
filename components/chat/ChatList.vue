@@ -5,6 +5,7 @@
                 <input type="text" class="bg-stone-100 rounded-sm  w-full h-8  outline-none text-xs placeholder:text-xs pl-2"
                 placeholder="아이디를 검색해주세요">
             </div>
+            <div class="bg-blue-500 px-2" @click="join">join </div>
             <!-- {{ props.chatList }} -->
             <ul v-for="(item, index) in props.chatList" :key="index">
                 <li class="w-full py-4 flex my-2" @click="goChatroom(item.chatroom_id, item.members, item.member_images)">
@@ -34,6 +35,10 @@ const props = defineProps({
 });
 const chatStore = useChatStore();
 const socket = io('http://localhost:3001');
+const join = () => {
+    console.log('join')
+    socket.emit('ask-join', 'room1')
+}
 
 // 채팅방 NO, 사용자, 프로필 이미지 보내는 emits
 const emits = defineEmits(['setChatroom']);
