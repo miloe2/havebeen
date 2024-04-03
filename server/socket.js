@@ -10,6 +10,11 @@ const io = new Server(httpServer, {
 });
 io.on('connection', (socket) => {
     console.log(`User Connected: ${socket.id}`);
+
+    socket.on('ask-join', (data) => {
+        console.log(data)
+        socket.join(data)
+    });
   
     socket.on('send_message', (data) => {
         console.log('send', data)

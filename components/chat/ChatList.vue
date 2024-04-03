@@ -47,7 +47,7 @@ const goChatroom = async (chatroom_id, member, image) => {
     await chatStore.fetchMessages(chatroom_id);
     emits('setChatroom', chatroom_id, member, image);
     // 사용자가 채팅방에 입장하는 이벤트 처리
-    socket.emit("join_chatroom", chatroom_id);
+    socket.emit('ask-join', chatroom_id);
     console.log('client clcick', chatroom_id)
 }
 
