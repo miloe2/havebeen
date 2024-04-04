@@ -5,10 +5,9 @@
                 <input type="text" class="bg-stone-100 rounded-sm  w-full h-8  outline-none text-xs placeholder:text-xs pl-2"
                 placeholder="아이디를 검색해주세요">
             </div>
-            <div class="bg-blue-500 px-2" @click="join">join </div>
             <!-- {{ props.chatList }} -->
             <ul v-for="(item, index) in props.chatList" :key="index">
-                <li class="w-full py-4 flex my-2" @click="goChatroom(item.chatroom_id, item.members, item.member_images)">
+                <li class="w-full py-2 flex my-1 bg-blue-0" @click="goChatroom(item.chatroom_id, item.members, item.member_images)">
                     <div class="w-11 h-11">
                         <img v-if="item.member_images" :src="item.member_images" alt="" class="w-11 h-11 object-cover rounded-full">
                         <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="">
@@ -35,10 +34,6 @@ const props = defineProps({
 });
 const chatStore = useChatStore();
 const socket = io('http://localhost:3001');
-const join = () => {
-    console.log('join')
-    socket.emit('ask-join', 'room1')
-}
 
 // 채팅방 NO, 사용자, 프로필 이미지 보내는 emits
 const emits = defineEmits(['setChatroom']);
@@ -48,7 +43,6 @@ const goChatroom = async (chatroom_id, member, image) => {
     emits('setChatroom', chatroom_id, member, image);
     // 사용자가 채팅방에 입장하는 이벤트 처리
     socket.emit('ask-join', chatroom_id);
-    console.log('client clcick', chatroom_id)
 }
 
 // -- 메시지 테이블

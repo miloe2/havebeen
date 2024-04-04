@@ -35,10 +35,10 @@
 
 
 
-
                 <div class="flex flex-col" v-for="(item, index) in newMessages" :key="index">
-                    <div v-if="item.user_id === user.id" 
-                    class="flex flex-col">
+                    <!-- 내 아이디와 같지 않으면,   -->
+                    <div v-if="item.user_id !== user.id" 
+                    class="flex flex-col ">
                         <div class="flex flex-row items-center">
                             <img v-if="chatroomInfo.image" :src="chatroomInfo.image" alt="" class="w-8 h-8 rounded-full mr-2">
                             <img v-else src="~/assets/img/icon/defaultProfile.svg" alt="" class="w-8 h-8 mr-2">
@@ -90,6 +90,7 @@ const props = defineProps({
 });
 const { data } = useAuth();
 const user = data.value.user.rows[0];
+// 내 아이디
 const user_id = user.id
 
 const chatStore = useChatStore();
@@ -99,30 +100,32 @@ const existingMessages = computed(() => {
 const socket = io('http://localhost:3001');
 const msg = ref('');
 const newMessages = ref([]);
-const test = ref('here');
+// const test = ref('here');
 
-const sendMsg = () => {
-    console.log('socket.on send 시작', test.value);
-    socket.emit('send_message', test.value  );
-};
-socket.on('receive_message', (data) => {
-    newMessages.value.push(data);
-    console.log('socket.on messgesg 받음', data)
-});
+// const sendMsg = () => {
+//     console.log('socket.on send 시작', test.value);
+//     socket.emit('send_message', test.value  );
+// };
 
 const sendMessage = () => {
-    const chatroom_id = props.chatroomInfo?.id;
+    const chatroom_id = props.chatroomInfo?.id.toString();
     const content = msg.value;
     if (msg.value.trim()) {
-        const tempId = Date.now(); // 임시 ID 생성
-        // console.log(chatroom_id, content, user_id)
-        // socket.emit("message", { message : content,});
-        socket.emit("send_message", { chatroom_id, message : content, user_id });
-        // newMessages.value.push({ tempId, content, user_id, chatroom_id }); // 화면에 즉시 표시
+        const today = new Date();
+        // const tempId = Date.now(); // 임시 ID 생성
+        const message = {chatroom_id, message : content, created_at : today, user_id}
+        socket.emit("send_message", message);
+        // newMessages.value.push(message)
         msg.value = ''; // 입력 필드 초기화
     }
 };
-const testTxt =ref('');
+
+// socket.on('receive_message', ({ chatroom_id, message, created_at, user_id }) => {
+socket.on('receive_message', async (data) => {
+    // newMessages.value.push({ chatroom_id, message, created_at, user_id });
+    console.log('socket.on messgesg 받음', data)
+});
+// const testTxt =ref('');
 // socket.on('message-broadcast', (data) => {
 //     testTxt.value = data
 //     console.log('서버로부터 메시지를 받았습니다:', data)
