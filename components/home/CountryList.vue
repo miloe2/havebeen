@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="mt-32">
+        <div class="text-xl font-bold montserrat mt-8">국가별 전시회</div>
         <CountryButton @set-country="handleCountryBtn"/>
         <!-- <div class="mt-4">{{ selectedCountry }} 전시회</div> -->
         <div class="w-full h-auto mt-8 grid grid-cols-2 gap-4">

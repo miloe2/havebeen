@@ -1,6 +1,6 @@
 <template>
     <div v-if="pending">
-        로딩중
+        <LoadingStatus/>
     </div>
         <div v-else class="xl:w-[1024px] w-full  mx-auto overflow-hidden">
         <div class="text-3xl font-bold montserrat mb-4">Chat</div>
@@ -18,6 +18,7 @@
 <script setup>
 import ChatList from '../../components/chat/ChatList.vue';
 import ChatRoom from '../../components/chat/ChatRoom.vue';
+import LoadingStatus from '~/components/Ui/LoadingStatus.vue';
 import { useAsyncData } from 'nuxt/app'
 const chatroomInfo = ref({
     id : null,

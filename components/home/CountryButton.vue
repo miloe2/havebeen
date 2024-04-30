@@ -1,6 +1,5 @@
 <template>
-    <div class="w-full h-auto mt-20">
-        <div class="text-xl font-bold montserrat">국가별 전시회</div>
+    <div class="w-full h-auto ">
         <ul 
         class="flex w-full h-full flex-wrap mt-8">
             <li v-for="(item, index) in country" :key="index" 

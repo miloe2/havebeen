@@ -1,7 +1,7 @@
 <template >
     <div class="w-full h-auto relative flex  flex-col justify-center card bg-zinc-50">
         <div class="w-full h-72 flex justify-center overflow-hidden">
-            <img :src="`https://source.unsplash.com/random/30${props.i}×300`" alt="" class="card-image w-full h-full object-cover" loading="lazy">
+            <img :src="`https://source.unsplash.com/random/30${props.i}×300`" alt="" class="card-image w-full h-full object-cover bg-zinc-200" loading="lazy">
         </div>
         
         <div class="w-full h-44 flex justify-center p-4">

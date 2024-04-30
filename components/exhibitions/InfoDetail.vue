@@ -1,7 +1,7 @@
 <template >
     <div class="flex w-[900px] bg-yellow-">
         <div class="w-full h-80">
-            <img :src="`https://source.unsplash.com/random/400x300`" alt="" class="card-image w-full h-full object-cover" loading="lazy">
+            <img :src="`https://source.unsplash.com/random/400x300`" alt="" class="card-image w-full h-full object-cover bg-zinc-200" loading="lazy">
         </div>
         <div class="flex flex-col pl-10 w-full pt-[6px]">
             <div class="text-sm font-medium">
