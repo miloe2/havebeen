@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full h-100 relative flex justify-center card">
+    <div class="w-full h-[23rem] relative flex justify-center card">
         <div class="w-full h-[60%] absolute bottom-0 bg-zinc-100 flex justify-center">
-            <div class="w-9/12 h-20 mt-28 text-sm">
+            <div class="w-9/12 h-20 mt-32 text-sm space-y-1">
                 <p class="text-zinc-600">{{ props.englishName }}</p>
                 <p class="font-semibold">{{ props.eventName }}</p>
                 <p>{{ eventPeried(props.startDate, props.finishDate) }}</p>
