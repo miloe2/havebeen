@@ -11,7 +11,7 @@
                 <div class="absolute top-0 left-0 bg-black opacity-40 w-full h-full rounded-2xl"></div>
                 <div class=" text-sm text-white absolute top-0 left-0 w-full h-full flex justify-center items-center flex-col">
                     <div class="font-medium ">{{ item.shortName }}</div>
-                    <div class="">{{ item.eventName }}</div>
+                    <div class="text-center">{{ item.eventName }}</div>
                     <div class="">{{ eventPeried(item.startDate, item.finishDate )}}</div>
                 </div>
                 </li>

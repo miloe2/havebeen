@@ -1,7 +1,7 @@
 <template>
-    <div class="mt-32">
-        <div class="text-xl font-bold  mt-8">지역별 전시회</div>
-        <CatgoryButton @set-item="handleCountryBtn" :items="'country'"/>
+    <div class="mt-20">
+        <div class="text-xl font-bold  mt-8">카테고리별 전시회</div>
+        <CatgoryButton @set-item="handleCountryBtn" :items="'category'"/>
         <!-- <CountryButton @set-country="handleCountryBtn"/> -->
         <div class="w-full h-auto mt-8 grid grid-cols-2 gap-4">
             <div v-for="item in dummy" :key="item.id"
@@ -22,9 +22,9 @@
 </template>
 <script setup lang="ts">
 import CatgoryButton from './CatgoryButton.vue';
-const selectedCountry = ref('미국');
+const selectedItem = ref('');
 const handleCountryBtn = (data :string) => {
-    selectedCountry.value = data;
+    selectedItem.value = data;
 }
 const dummy = [
     {
