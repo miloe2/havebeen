@@ -1,5 +1,5 @@
 <template >
-    <div class="flex flex-col w-[900px] bg-yellow- mt-10">
+    <div class="flex flex-col w-full bg-yellow- mt-10">
         <h1 class="font-bold text-lg">{{ props.category }} 전시회를 찾으세요?</h1>
         <div class="w-full mt-4">
             <SwiperSlider :itemsList="categoryList" :slidesPerPage="3"/>

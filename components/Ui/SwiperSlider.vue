@@ -17,8 +17,11 @@
                 </li>
             </ul>
         </div>
-        <button @click="handleLeft"><-</button>
-        <button @click="handleRight">-></button>
+        <div class="flex justify-between">
+            <button @click="handleLeft"><-</button>
+            <button @click="handleRight">-></button>
+        </div>
+
     </div>
 </template>
 <script setup>

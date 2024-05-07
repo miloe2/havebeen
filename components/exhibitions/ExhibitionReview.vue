@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col w-[900px] bg-yellow- mt-8">
+    <div class="flex flex-col w-full bg-yellow- mt-8">
 
         <h1 class="font-bold text-xl mt-8">리뷰</h1>
         <!-- <div class="w-full bg-zinc-200 rounded-2xl h-[200px] mt-4">
