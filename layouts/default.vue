@@ -1,9 +1,9 @@
 <template>
     <div class="flex ">
         
-        <div class="bg-white w-full h-14 fixed top-0 left-0 border border-solid border-zinc-400 flex  text-sm" style="z-index: 800;">
-            <div class="xl:w-[1024px] w-full  bg-red-0   mx-auto flex items-center space-x-4">
-            <div class="w-12 h-10 bg-zinc-200 flex justify-center items-center mr-auto">LOGO</div>
+        <div class=" w-full h-14 fixed top-0 left-0 border-b border-solid border-zinc-200 flex  text-sm nav" style="z-index: 800;">
+            <div class="xl:w-[1024px] w-full text-xs bg-red-0   mx-auto flex items-center space-x-4">
+            <div class="w-10 h-10 bg-zinc-200 flex justify-center items-center mr-auto"></div>
             <NuxtLink to="/">
                 <div class="px-2 bg-yellow-00">Home</div>
             </NuxtLink>
@@ -52,5 +52,11 @@
 const { data } = useAuth();
 </script>
 <style scoped>
+.nav {
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+	-moz-backdrop-filter: saturate(180%) blur(15px);
+	-o-backdrop-filter: saturate(180%) blur(15px);
+	backdrop-filter: saturate(180%) blur(15px);
+}
 
 </style>

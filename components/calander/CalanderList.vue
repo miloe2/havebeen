@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-auto bg-red-0">
-        <button @click="() => {console.log(testValue)}">check</button>
+        <button @click="() => {console.log(plannedExpo)}">check</button>
         {{ list }}
         <div class="bg-yellow-00 w-full h-auto">
             <div class="flex space-x-4">
@@ -15,11 +15,17 @@
                     v-for="(date, index) in dates" :key="index">{{ date }}</li>
                 </ul>
                 <ul class="grid grid-cols-7">
-                    <li 
-                    class="ring-1 ring-zinc-100 px-2 py-3 h-32"
-                    v-for="(day, index) in days" :key="index">{{ day }}
-                        <!-- <div > event </div> -->
+                    <li class="ring-1 ring-zinc-100 px-2 py-3 h-32" 
+                    v-for="(day, index) in days" :key="index">
+                        {{ day }}
+                        <div 
+                        v-for="(expo, index) in printExpoInCalendar(day)" :key="expo.id"
+                        :style="`background-color : ${colors[index]}`"
+                        class="text-sm truncate mb-2">
+                            {{ expo.event }} {{ index }}
+                        </div>
                     </li>
+
                 </ul>
             </div>
             
@@ -30,6 +36,8 @@
 import debounce from 'lodash/debounce';
 
 const dates = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' ];
+const colors = [ '#faf5ff', '#f0fdf4', '#ecfeff', '#fffbeb', '#fff1f2']
+// const colors = ['blue', 'red', 'green', 'yellow', 'purple', ]
 const days = ref([]);
 const today = new Date();
 
@@ -39,18 +47,27 @@ const month = computed(() => exhibitionStore.searchMonth);
 const exhibitionsByMonth = computed(() => exhibitionStore.exhibitionsByMonth)
 const searchDate = computed(() => `${year.value}-${month.value.toString().padStart(2, '0')}`);
 const list = computed(() => exhibitionsByMonth.value?.find(m => m.month === searchDate.value)?.data || []);
-const testValue = ref([]);
-const test = () => {
-    testValue.value = [];
+const plannedExpo = ref([]);
+const calcPlannedExpo = () => {
+    plannedExpo.value = [];
     list.value.map(e => {
         let startDate = new Date(e.startDate); // startDate 문자열을 Date 객체로 변환
         let start = startDate.getUTCDate(); // UTC 기준 일자만 추출
+        let finishDate = new Date(e.finishDate);
+        let finish = finishDate.getUTCDate();
         let event = e.englishName; 
-        testValue.value.push({ start, event }); // 추출된 일자와 이벤트 이름을 객체로 만들어 배열에 추가
+        plannedExpo.value.push({ start, event, finish });
     })
 };
+
+const printExpoInCalendar = (day) => {
+    return plannedExpo.value.filter(e => day >= e.start && day <= e.finish)
+        .map(e => ({ date: day, event: e.event, id: e.id }));
+};
+
 watch(list, () => {
-    test(); // list가 변화할 때마다 test 함수를 호출
+    generateCalendar()
+    calcPlannedExpo(); 
 });
 
 const handleRightBtn = debounce(() => {
@@ -79,7 +96,7 @@ const generateCalendar = () => {
 
 onMounted(( )=> {
     generateCalendar();
-    test();
+    calcPlannedExpo();
 })
 
 
