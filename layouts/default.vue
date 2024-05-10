@@ -38,8 +38,8 @@
         </div>
         </div>
         <div class="flex-col flex  w-full ">
-            <div class="w-full h-20"></div> 
-            <div class="pt-10 mx-auto w-full">
+            <div class="w-full h-20 "></div> 
+            <div class="pt-0 mx-auto w-full">
                 <slot />
 
             </div>

@@ -1,8 +1,9 @@
 <template>
     <div class="w-full h-auto bg-red-0">
-        <button @click="() => {console.log(plannedExpo)}">check</button>
-        {{ list }}
-        <div class="bg-yellow-00 w-full h-auto">
+        <!-- <button @click="() => {console.log(plannedExpo)}">check</button> -->
+        <!-- {{ list }} -->
+        <div class="text-3xl font-bold montserrat">Calandar</div>
+        <div class="bg-yellow-00 w-full h-auto mt-4">
             <div class="flex space-x-4">
                 <button @click="handleLeftBtn"><</button>
                 <div>{{ month }}</div>
@@ -11,18 +12,18 @@
             <div class="bg-yellow-00 ">
                 <ul class="grid grid-cols-7">
                     <li 
-                    class="ring-1 ring-zinc-100 p-3"
+                    class="ring-1 ring-zinc-100 p-3 text-sm"
                     v-for="(date, index) in dates" :key="index">{{ date }}</li>
                 </ul>
                 <ul class="grid grid-cols-7">
-                    <li class="ring-1 ring-zinc-100 px-2 py-3 h-32" 
+                    <li class="ring-1 ring-zinc-100 px-2 py-3 min-h-32 h-auto" 
                     v-for="(day, index) in days" :key="index">
                         {{ day }}
                         <div 
                         v-for="(expo, index) in printExpoInCalendar(day)" :key="expo.id"
-                        :style="`background-color : ${colors[index]}`"
-                        class="text-sm truncate mb-2">
-                            {{ expo.event }} {{ index }}
+                        :style="`border-left : 5px solid ${expo.color}`"
+                        class="text-xs truncate mt-2 pl-2 py-1 bg-zinc-50">
+                            {{ expo.event }} 
                         </div>
                     </li>
 
@@ -36,7 +37,7 @@
 import debounce from 'lodash/debounce';
 
 const dates = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' ];
-const colors = [ '#faf5ff', '#f0fdf4', '#ecfeff', '#fffbeb', '#fff1f2']
+const colors = ['#f87171', '#fbbf24', '#a3e635', '#22d3ee', '#c084fc',  '#e879f9']
 // const colors = ['blue', 'red', 'green', 'yellow', 'purple', ]
 const days = ref([]);
 const today = new Date();
@@ -60,9 +61,23 @@ const calcPlannedExpo = () => {
     })
 };
 
+// const printExpoInCalendar = (day) => {
+//     return plannedExpo.value.filter(e => day >= e.start && day <= e.finish)
+//         .map(e => ({ date: day, event: e.event, id: e.id }));
+// };
 const printExpoInCalendar = (day) => {
-    return plannedExpo.value.filter(e => day >= e.start && day <= e.finish)
-        .map(e => ({ date: day, event: e.event, id: e.id }));
+    return plannedExpo.value.reduce((acc, cur, index) => {
+        if (day >= cur.start && day <= cur.finish) {
+            // 색상 인덱스를 이벤트 ID 또는 순서에 따라 할당
+            const colorIndex = index % colors.length;
+            acc.push({
+                date: day,
+                event: cur.event,
+                color: colors[colorIndex]
+            });
+        }
+        return acc;
+    }, []);
 };
 
 watch(list, () => {
