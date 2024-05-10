@@ -1,5 +1,6 @@
 <template >
     <div class="xl:w-[1024px] w-full min-h-screen  mx-auto mb-40">
+        <MonthButton/>
         <CalanderList/>
         <ExhibitionsList/>
     </div>
@@ -8,6 +9,7 @@
 import { watch } from 'vue';
 import ExhibitionsList from '~/components/exhibitions/ExhibitionsList.vue';
 import CalanderList from '~/components/calander/CalanderList.vue';
+import MonthButton from '~/components/exhibitions/MonthButton.vue';
 const exhibitionStore = useExhibitionStore();
 const year = computed(() => exhibitionStore.searchYear);
 const month = computed(() => exhibitionStore.searchMonth);

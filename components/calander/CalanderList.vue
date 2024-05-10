@@ -2,13 +2,9 @@
     <div class="w-full h-auto bg-red-0">
         <!-- <button @click="() => {console.log(plannedExpo)}">check</button> -->
         <!-- {{ list }} -->
-        <div class="text-3xl font-bold montserrat">Calandar</div>
+        <!-- <div class="text-3xl font-bold montserrat">Calandar</div> -->
         <div class="bg-yellow-00 w-full h-auto mt-4">
-            <div class="flex space-x-4">
-                <button @click="handleLeftBtn"><</button>
-                <div>{{ month }}</div>
-                <button @click="handleRightBtn">></button>
-            </div>
+
             <div class="bg-yellow-00 ">
                 <ul class="grid grid-cols-7">
                     <li 
