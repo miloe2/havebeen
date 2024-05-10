@@ -35,7 +35,8 @@ const router = useRouter();
 // const month = ref(today.getMonth() + 1);
 // const searchDate = ref(`${year.value}-${month.value.toString().padStart(2, '0')}`);
 const exhibitionStore = useExhibitionStore();
-
+const year = computed(() => exhibitionStore.searchYear);
+const month = computed(() => exhibitionStore.searchMonth);
 const exhibitionsByMonth = computed(() => exhibitionStore.exhibitionsByMonth)
 const searchDate = computed(() => `${year.value}-${month.value.toString().padStart(2, '0')}`);
 const list = computed(() => exhibitionsByMonth.value?.find(m => m.month === searchDate.value)?.data || [])
