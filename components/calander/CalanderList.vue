@@ -18,14 +18,13 @@
                         <div 
                         v-for="(expo, index) in printExpoInCalendar(day)" :key="expo.id"
                         :style="`border-left : 5px solid ${expo.color}`"
-                        class="text-xs truncate mt-2 pl-2 py-1 bg-zinc-50">
+                        @click="updateScroll"
+                        class="text-xs truncate mt-2 pl-2 py-1 bg-zinc-50 cursor-pointer">
                             {{ expo.event }} 
                         </div>
                     </li>
-
                 </ul>
             </div>
-            
         </div>
     </div>
 </template>
@@ -34,9 +33,11 @@ import debounce from 'lodash/debounce';
 
 const dates = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' ];
 const colors = ['#f87171', '#fbbf24', '#a3e635', '#22d3ee', '#c084fc',  '#e879f9']
-// const colors = ['blue', 'red', 'green', 'yellow', 'purple', ]
 const days = ref([]);
-const today = new Date();
+const emits = defineEmits(['setScroll']);
+const updateScroll = () =>{ 
+    emits('setScroll');
+}
 
 const exhibitionStore = useExhibitionStore();
 const year = computed(() => exhibitionStore.searchYear);
@@ -57,10 +58,7 @@ const calcPlannedExpo = () => {
     })
 };
 
-// const printExpoInCalendar = (day) => {
-//     return plannedExpo.value.filter(e => day >= e.start && day <= e.finish)
-//         .map(e => ({ date: day, event: e.event, id: e.id }));
-// };
+
 const printExpoInCalendar = (day) => {
     return plannedExpo.value.reduce((acc, cur, index) => {
         if (day >= cur.start && day <= cur.finish) {
