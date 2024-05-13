@@ -3,12 +3,10 @@
         <div class="w-full h-72 flex justify-center overflow-hidden">
             <img :src="`https://source.unsplash.com/random/30${props.i}×300`" alt="" class="card-image w-full h-full object-cover bg-zinc-200" loading="lazy">
         </div>
-        
         <div class="w-full h-44 flex justify-center p-4">
             <div class="w-full text-base space-y-[2px] text-def">
-                <p class="flex space-x-1"> <img src="/assets/img/icon/location.svg" alt=""> <span class=""> {{ props.country }} / {{ props.city }}</span></p>
+                <p class="flex space-x-1"> <img src="/assets/img/icon/location.svg" alt=""> <span class=""> {{ props.city }} / {{ props.venue }}</span></p>
                 <p class="font-medium">{{ props.englishName }}</p>
-                <p class=" truncate">{{ props.eventName }} {{ `(${props.shortName})` }}</p>
                 <p>{{ eventPeried(props.startDate, props.finishDate) }}</p>
                 <div class=" pt-2 flex justify-start">
                     <img src="/assets//img/icon/like.svg" alt="" class="w-4 mr-2">

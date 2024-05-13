@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-auto bg-red-0">
         <!-- <button @click="() => {console.log(plannedExpo)}">check</button> -->
-        <!-- {{ list }} -->
+        <!-- {{ days }} {{ month }}  -->
         <!-- <div class="text-3xl font-bold montserrat">Calandar</div> -->
         <div class="bg-yellow-00 w-full h-auto mt-4">
 
@@ -19,7 +19,7 @@
                         v-for="(expo, index) in printExpoInCalendar(day)" :key="expo.id"
                         :style="`border-left : 5px solid ${expo.color}`"
                         @click="updateScroll"
-                        class="text-xs truncate mt-2 pl-2 py-1 bg-zinc-50 cursor-pointer">
+                        class="text-xs  mt-2 pl-2 py-1 bg-zinc-50 cursor-pointer">
                             {{ expo.event }} 
                         </div>
                     </li>
@@ -32,7 +32,7 @@
 import debounce from 'lodash/debounce';
 
 const dates = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' ];
-const colors = ['#f87171', '#fbbf24', '#a3e635', '#22d3ee', '#c084fc',  '#e879f9']
+const colors = ['#f87171', '#1f2937', '#fbbf24', '#b45309', '#a3e635', '#22d3ee', '#047857', '#c084fc',  '#e879f9']
 const days = ref([]);
 const emits = defineEmits(['setScroll']);
 const updateScroll = () =>{ 
@@ -49,30 +49,44 @@ const plannedExpo = ref([]);
 const calcPlannedExpo = () => {
     plannedExpo.value = [];
     list.value.map(e => {
-        let startDate = new Date(e.startDate); // startDate 문자열을 Date 객체로 변환
-        let start = startDate.getUTCDate(); // UTC 기준 일자만 추출
-        let finishDate = new Date(e.finishDate);
-        let finish = finishDate.getUTCDate();
+        let start = new Date(e.startDate); // startDate 문자열을 Date 객체로 변환
+        // let start = startDate.getDate(); // UTC 기준 일자만 추출
+        let finish = new Date(e.finishDate);
+        // let finish = finishDate.getDate();
         let event = e.englishName; 
         plannedExpo.value.push({ start, event, finish });
     })
 };
 
-
 const printExpoInCalendar = (day) => {
+    const targetDate = new Date(year.value, month.value - 1, day); // 월은 0에서 시작하므로 1을 빼줍니다.
     return plannedExpo.value.reduce((acc, cur, index) => {
-        if (day >= cur.start && day <= cur.finish) {
-            // 색상 인덱스를 이벤트 ID 또는 순서에 따라 할당
+        // console.log(targetDate, cur.start, cur.finish)
+        if (targetDate >= cur.start && targetDate <= cur.finish) {
             const colorIndex = index % colors.length;
             acc.push({
-                date: day,
+                date: targetDate.getDate(),
                 event: cur.event,
                 color: colors[colorIndex]
             });
-        }
+        };
         return acc;
     }, []);
 };
+// const printExpoInCalendar = (day) => {
+//     return plannedExpo.value.reduce((acc, cur, index) => {
+//         if (day >= cur.start && day <= cur.finish) {
+//             // 색상 인덱스를 이벤트 ID 또는 순서에 따라 할당
+//             const colorIndex = index % colors.length;
+//             acc.push({
+//                 date: day,
+//                 event: cur.event,
+//                 color: colors[colorIndex]
+//             });
+//         }
+//         return acc;
+//     }, []);
+// };
 
 watch(list, () => {
     generateCalendar()
@@ -88,8 +102,7 @@ const handleLeftBtn = debounce(() => {
 const generateCalendar = () => {
     days.value = [];
     const firstDay = new Date(year.value, month.value, 1);
-    const lastDay = new Date(year.value, month.value + 1, 0);
-
+    const lastDay = new Date(year.value, month.value, 0);
     const startDayOfWeek = firstDay.getDay(); // 이 달의 첫 날의 요일 인덱스
 
     // 시작 요일 전까지 빈 공간으로 채우기

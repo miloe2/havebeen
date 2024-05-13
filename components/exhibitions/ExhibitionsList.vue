@@ -7,7 +7,7 @@
                 <ExhibitionsCard 
                 :eventName="item.eventName"
                 :shortName="item.shortName"
-                :englishName="item.shortName"
+                :englishName="item.englishName"
                 :country = "item.country"
                 :city = "item.city"
                 :startDate = "item.startDate"
