@@ -3,24 +3,27 @@
         <!-- <button @click="() => {console.log(plannedExpo)}">check</button> -->
         <!-- {{ days }} {{ month }}  -->
         <!-- <div class="text-3xl font-bold montserrat">Calandar</div> -->
-        <div class="bg-yellow-00 w-full h-auto mt-4">
+        <div class="bg-yellow-00 w-full h-auto mt-1">
 
             <div class="bg-yellow-00 ">
                 <ul class="grid grid-cols-7">
                     <li 
-                    class="ring-1 ring-zinc-100 p-3 text-sm"
+                    class="border-y border-solid border-zinc-200 p-3 text-sm"
                     v-for="(date, index) in dates" :key="index">{{ date }}</li>
                 </ul>
                 <ul class="grid grid-cols-7">
-                    <li class="ring-1 ring-zinc-100 px-2 py-3 min-h-32 h-auto" 
+                    <li class="border-b border-solid border-zinc-200 ring-zinc-100 px-2 py-3 min-h-32 h-auto " 
                     v-for="(day, index) in days" :key="index">
-                        {{ day }}
+                         <span class="font-bold text-def">{{ day }}</span>
                         <div 
                         v-for="(expo, index) in printExpoInCalendar(day)" :key="expo.id"
-                        :style="`border-left : 5px solid ${expo.color}`"
+
                         @click="updateScroll"
-                        class="text-xs  mt-2 pl-2 py-1 bg-zinc-50 cursor-pointer">
-                            {{ expo.event }} 
+                        class="text-xs flex items-center w-auto mt-2 pl-2 py-1 bg-zinc-50 cursor-pointer">
+                            <div class="w-2 h-2 rounded-full mr-2 flex-shrink-0"                        
+                            :style="`background-color : ${expo.color}`"></div>
+                            
+                            <div class="truncate">{{ expo.event }}</div> 
                         </div>
                     </li>
                 </ul>
@@ -32,7 +35,7 @@
 import debounce from 'lodash/debounce';
 
 const dates = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT' ];
-const colors = ['#f87171', '#1f2937', '#fbbf24', '#b45309', '#a3e635', '#22d3ee', '#047857', '#c084fc',  '#e879f9']
+const colors = ['#d6d3d1','#fca5a5', '#fdba74', '#fcd34d', '#fde047', '#bef264', '#86efac',  '#6ee7b7', '#5eead4', '#67e8f9', '#7dd3fc'  ]
 const days = ref([]);
 const emits = defineEmits(['setScroll']);
 const updateScroll = () =>{ 
