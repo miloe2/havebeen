@@ -4,7 +4,9 @@
             <InfoDetail 
             :exhibitionsDetail="data.exhibitionDetail" 
             :userActions="data.userActions" />
-            <DetailPhotos/>
+            <DetailPhotos
+            :images="data.exhibitionDetail.images" 
+            />
             <ExhibitionReview/>
             <RelativeExhibitions 
             :category="data.exhibitionDetail.category"

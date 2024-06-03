@@ -113,7 +113,7 @@ const fetchReviewsList = async() => {
     }
 }
 onMounted(() => {
-    fetchReviewsList();
+    // fetchReviewsList();
 })
 
 

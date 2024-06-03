@@ -9,7 +9,7 @@
         <h1 class="font-bold text-lg mt-8">영상</h1>
         <div class="w-full bg-zinc-200 rounded-2xl h-[400px] mt-4">
         </div>
-        
+        {{ props.images }}
         <h1 class="font-bold text-lg mt-8">전시장</h1>
         <div class="w-full bg-zinc-200 rounded-2xl h-[400px] mt-4">
         </div>
@@ -17,4 +17,7 @@
     </div>
 </template>
 <script setup>
+const props = defineProps({
+    images : {type : Array, required : true},
+});
 </script>

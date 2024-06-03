@@ -5,8 +5,9 @@
         </div>
         <div class="w-full h-44 flex justify-center p-4">
             <div class="w-full text-base space-y-[2px] text-def">
-                <p class="flex space-x-1"> <img src="/assets/img/icon/location.svg" alt=""> <span class=""> {{ props.city }} / {{ props.venue }}</span></p>
-                <p class="font-medium">{{ props.englishName }}</p>
+                <p class="flex space-x-1 text-sm"> <img src="/assets/img/icon/location.svg" alt=""> <span class=""> {{ props.country }} / {{ props.city }}</span></p>
+                <p class="">{{ props.shortName }}</p>
+                <p class="font-medium">{{ props.eventName }}</p>
                 <p>{{ eventPeried(props.startDate, props.finishDate) }}</p>
                 <div class=" pt-2 flex justify-start">
                     <img src="/assets//img/icon/like.svg" alt="" class="w-4 mr-2">

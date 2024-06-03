@@ -8,7 +8,7 @@ export const useExhibitionStore = defineStore('exhibitions', {
         exhibitions : [] as DataItem[] | null,
         exhibitionsByMonth : [] as DataByMonth[] | null,
         closestExhibitions  : [] as DataItem[] | null,
-        exhibitionDetail : [] as DataItem[] | null,
+        exhibitionDetail : {} as DataItem | null,
         exhibitionsByCategory : [] as DataByCategory[] | null,
         userActions : [] as UserActions[] | null,
         searchYear : new Date().getFullYear(),
@@ -64,12 +64,17 @@ export const useExhibitionStore = defineStore('exhibitions', {
         },
         async fetchExhibitionDetail(id:unknown){
             try{
-                const data = await $fetch<DataItem[]>(`/api/exhibitions/${id}`);
-                this.exhibitionDetail = data;
+                const data = await $fetch<DataItem>(`/api/exhibitions/${id}`);
+                const images = await $fetch<string[]>(`/api/exhibitions/${id}/images`);
+                // this.exhibitionDetail.images = images;
+                // console.log(images)
+                this.exhibitionDetail = {...data, images };
+                console.log(this.exhibitionDetail)
             } catch(error){
                 console.log(error)
             }
         },
+
         async fetchUserActions(exhibition_id : unknown, user_id : number){
             try {
                 const data = await $fetch<UserActions[]>(`/api/exhibitions/${exhibition_id}/actions`,

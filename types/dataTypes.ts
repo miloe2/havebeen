@@ -18,6 +18,7 @@ export interface DataItem {
     startDate?: string; 
     finishDate?: string; 
     closestDifference?: number; 
+    images?: string[];
 }
 export interface DataByMonth {
     month : string;
